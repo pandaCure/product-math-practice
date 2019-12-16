@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "alloy",
+    "alloy/react",
+    "alloy/typescript"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "overrides": [
+    {
+      "files":["scripts/*.js", "server/*.js", "postcss.config.js"],
+      "rules":{
+        "@typescript-eslint/no-require-imports": 0
+      }
+    }
+  ]
+}
