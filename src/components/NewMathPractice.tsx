@@ -1,14 +1,19 @@
 import React from "react";
 import getAddNum from "@/hooks/hooks";
-import MathQuill, { addStyles as addMathquillStyles } from "react-mathquill";
-import EnhanceMathQuill from '@/components/EnhanceMathQuill/EnhanceMathQuill'
-addMathquillStyles()
+import MathQuill from "react-mathquill";
+// import EnhanceMathQuill from '@/components/EnhanceMathQuill/EnhanceMathQuill'
+// addMathquillStyles()
+import Latex from 'react-latex'
 const NewMathPractice = () => {
   console.log(getAddNum());
   return (
     <div>
-      <MathQuill latex='a \+ b = 10' />
-      <EnhanceMathQuill />
+      <div>
+        <Latex>$1 + 2 = \div$</Latex>
+      </div>
+      <div>
+        <MathQuill latex='10' />
+      </div>
     </div>
   );
 };
