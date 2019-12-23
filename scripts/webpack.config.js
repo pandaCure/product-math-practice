@@ -56,9 +56,5 @@ module.exports = {
       filename: "index.html",
       template: path.resolve(process.cwd(), "public/index.html")
     })
-  ],
-  devServer: {
-    contentBase: path.resolve(process.cwd(), "dist"),
-    hot: true
-  }
+  ]
 };

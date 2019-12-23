@@ -1,0 +1,43 @@
+.practice-block {
+  color: rgba(211, 213, 219, 1);
+  font-size: calc(28px / 1.21);
+  font-weight: normal;
+  .latex {
+    display: flex;
+    align-items: center;
+  }
+  .math-quill {
+    display: flex;
+    align-items: center;
+  }
+}
+.__katex-normal-style {
+  // color: rgba(211, 213, 219, 1);
+  // font-size: calc(28px / 1.21);
+  // font-weight: normal;
+}
+.question {
+  display: flex;
+  align-items: center;
+  .answer {
+    display: inline-block;
+    font: inherit;
+    font-family: "DIN Bold";
+    font-size: 1.21em;
+    transform: skew(170deg);
+    width: 47px;
+    height: 32px;
+    border: 2px solid rgb(27 ,167, 249);
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 23px;
+    margin-left: 6px;
+  }
+}
+.answer {
+  display: inline-block;
+  font: inherit;
+  font-family: "DIN Bold";
+  font-size: 1.21em;
+  transform: skew(170deg);
+}

@@ -1,8 +1,12 @@
-import React from 'react'
-import NewMathPractice from '@/components/NewMathPractice'
+import React from "react";
+import NewMathPractice from "@/components/NewMathPractice";
+import NewMathPracticeByClassName from "@/components/NewMathPracticeByClassName/NewMathPracticeByClassName";
 const MainScreen = () => {
   return (
-    <NewMathPractice />
-  )
-}
-export default MainScreen
+    <div>
+      <NewMathPractice />
+      {/* <NewMathPracticeByClassName /> */}
+    </div>
+  );
+};
+export default MainScreen;
