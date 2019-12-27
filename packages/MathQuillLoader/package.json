@@ -1,0 +1,41 @@
+{
+  "name": "@zzy/mathquillloader",
+  "version": "1.0.0",
+  "description": "use import mathquill and auto load style",
+  "author": "pandaCure <zzyamor@163.com>",
+  "homepage": "https://github.com/pandaCure/product-math-practice#readme",
+  "license": "ISC",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "esnext": "esnext/index.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "cjs",
+    "esm",
+    "types",
+    "types",
+    "style"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pandaCure/product-math-practice.git"
+  },
+  "scripts": {
+    "compile:esm": "tsc -p ./tsconfig.json --outDir esm",
+    "compile:cjs": "tsc -m commonjs --outDir cjs -p ./tsconfig.json",
+    "compile:esnext": "tsc -t esnext --outDir esnext -p ./tsconfig.json"
+  },
+  "bugs": {
+    "url": "https://github.com/pandaCure/product-math-practice/issues"
+  },
+  "dependencies": {
+    "@edtr-io/mathquill": "^0.11.0",
+    "exports-loader": "^0.7.0",
+    "imports-loader": "^0.8.0",
+    "jquery": "^3.4.1"
+  }
+}

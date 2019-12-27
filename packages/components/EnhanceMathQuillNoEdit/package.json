@@ -1,11 +1,11 @@
 {
-  "name": "@zzy/katex-math",
-  "version": "0.0.0",
+  "name": "@zzy/enhancemathquillnoedit",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "author": "pandaCure <zzyamor@163.com>",
-  "homepage": "https://github.com/pandaCure/product-math-practice/tree/master/packages/components/katex-math#readme",
+  "homepage": "https://github.com/pandaCure/product-math-practice#readme",
   "license": "ISC",
-  "main": "lib/katex-math.js",
+  "main": "lib/EnhanceMathQuillNoEdit.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"

@@ -12,13 +12,9 @@
 //   src: url(fonts/Symbola.eot);
 //   src: local("Symbola Regular"), local("Symbola"), url(fonts/Symbola.woff2) format("woff2"), url(fonts/Symbola.woff) format("woff"), url(fonts/Symbola.ttf) format("truetype"), url(fonts/Symbola.svg#Symbola) format("svg");
 // }
-
 @font-face {
   font-family: "DIN Bold";
   src: local("DIN-BoldItalic"), url(fonts/DINAlternateBold.ttf) format("truetype");
-}
-.s {
-  font-family: "DIN Bold", "Noto Sans TC", sans-serif;
 }
 .mq-editable-field {
   display: -moz-inline-box;

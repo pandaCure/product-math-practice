@@ -15,5 +15,6 @@
         "@typescript-eslint/no-require-imports": 0
       }
     }
-  ]
+  ],
+  "plugins": ["react-hooks"]
 }

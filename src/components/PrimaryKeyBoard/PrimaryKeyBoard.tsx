@@ -61,12 +61,14 @@ const PrimaryKeyBoard = () => {
     <div className="zzy-keyboard" onClick={cancelEditExpression}>
       <div className="input-block" onClick={EditExpression}>
         <div className="input-value-block">
-          <EnhanceMathQuillEdit
-            mathExpression={mathExpression}
-            handleInputExpression={handleInputExpression}
-            edit={edit}
-            getMq={getMq}
-          />
+          <div className="edit-block">
+            <EnhanceMathQuillEdit
+              mathExpression={mathExpression}
+              handleInputExpression={handleInputExpression}
+              edit={edit}
+              getMq={getMq}
+            />
+          </div>
         </div>
       </div>
       <ul className="a">
