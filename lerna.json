@@ -3,5 +3,15 @@
     "packages/*",
     "packages/components/*"
   ],
-  "version": "independent"
+  "version": "independent",
+  "npmClient": "npm",
+  "command": {
+    "publish": {
+      "message": "chore(release): version publish"
+    },
+    "bootstrap": {
+      "ignore": "component-*",
+      "npmClientArgs": ["--no-package-lock"]
+    }
+  }
 }

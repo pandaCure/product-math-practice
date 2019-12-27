@@ -22,7 +22,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pandaCure/product-math-practice.git"
+    "url": "git+https://github.com/pandaCure/product-math-practice.git",
+    "directory": "packages/MathQuillLoader"
   },
   "scripts": {
     "compile:esm": "tsc -p ./tsconfig.json --outDir esm",
