@@ -1,6 +1,6 @@
 import React, { useMemo, ReactNode } from "react";
 import katex from "katex";
-import { parse, traverse, NodePath } from "@babel/core";
+import { parse, traverse } from "@babel/core";
 import generator from "@babel/generator";
 import * as traverseTypes from "@babel/traverse"
 import * as t from "@babel/types";
@@ -36,16 +36,6 @@ const KatexMath: React.FC<katex.IKatexMathProps & IKatexMath> = ({
       traverse(ast, {
         ...traverseOpts
       });
-      const old = generator(ast).code.replace(/\;$/, '');
-      const asts = parse(old, {
-        parserOpts: {
-          sourceType: "module",
-          plugins: ["jsx"]
-        }
-      }) as t.File;
-      traverse(asts, {
-        ...traverseOpts
-      });
       return generator(ast).code.replace(/\;$/, '');
     } catch (err) {
       handleKatexError(err);
@@ -55,7 +45,7 @@ const KatexMath: React.FC<katex.IKatexMathProps & IKatexMath> = ({
   return (
     <div
       dangerouslySetInnerHTML={{ __html: katexRenderString }}
-      className={classnames("__katex-normal-style", classname)}
+      className={classnames("@zzy__katex-normal-style", classname)}
     />
   );
 };

@@ -1,0 +1,118 @@
+$base: zzy;
+$baseEM: 28;
+@function computerEM($value) {
+  @return ($value / $baseEM) * 1em;
+}
+@function convertComputerEM($value, $rate) {
+  @return ($value / $rate) * 1em
+}
+@mixin bgCompose {
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+@font-face {
+  font-family: 'DINCond Bold';
+  src: local('DIN-BoldItalic'),
+    url(../../styles/fonts/DINCond-Bold.otf) format('opentype');
+}
+@font-face {
+  font-family: 'Keyword';
+  src: url('../../styles/fonts/keyword.eot?t=1577176201529'); /* IE9 */
+  src: url('../../styles/fonts/keyword.eot?t=1577176201529#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAM4AAsAAAAAB8AAAALqAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCfgqDKIJwATYCJAMMCwgABCAFhG0HPhu2BhHVk4Nkf0nulLZXcIAKy1EtabY+UdGddmym7bi+AYWcldrXUBT4IUQ+E0S1X37P7rvLhlglClDGA4FEABVPJFFj+eQTuAh9BLb7W1sCGQccBZ0nEJjn+805Uldjogskp8mjL/xrOffSjIRxWwDo8OKCINMkgfik84te6AHd36+Tk0RafLICq0caeISRRri4X0KSSpfp1G1/6FexLGp3oSXFLvzw3gRVzka0THhJb3r1Cz/DtRMPjqV+iud96TtVtzY9SAk+UGRuI9tAxjhA3zA8a2J5EI79EOAiWAyZqdnFGBY0TIDcxvpKTE7NaskVhrDXzM0/sqGYWJxnxbr8efnkMaDYGmhsfl1KDfH/81/picLmCJz5jICxCDSIARZk1Zrz0XE4hubihS0h2Fc3wX/lqP/C2bv9hwdCQToo2w1ABIwo/BcqQkoURMG5dwvYzUymcIrkfmMNakz8KcPb/6bdu99lj6X3qTt+QWD9fa9ib5nfzi4lyen8d18rq6TA/VNLmwkDGmtbzMFtM24wEm0MLBSBJ2emBdXTmZsaLcV9HYfRXSfnV3EFJ446BA9wu57sACxp5CoUQ+YVTr6r1j/oMuPIA4BjixqSe/u/Uhn2D/VvxALgI/wzyOuvxbyORfDX5NkSHC2aPBTSCbSwKBtatYSRQQVcMDOQQXYf38dL/XtngzD8U1CcBIFmhCAtbAzYuIoFOyMOXERLW+zKVxeapDMQZRaA8HIBiodH0Ly8IS3sN7AJ8Al2XtHgolRsTVdhMTuDoFDUVH6pq3i2RKcmyr2geY6FZHkS94AsnY+yOC3Gzpghc0xYXk2uaskKT3QCh2EcmZxwj0rjVtXtk8TWfVFc8bQyKwSFoqbyS13Fs+XN1ZS+/4LmORbSUtJjfECWrnXK4rQH8iyee5XcyyPLq8lVLVnhiU6gF8aRydX36lFp3I4Iun2Cq9m+4nh96fQBsowK0Fy9VqLFQgeMUHgiNarYfVcrAAA=') format('woff2'),
+  url('../../styles/fonts/keyword.woff?t=1577176201529') format('woff'),
+  url('../../styles/fonts/keyword.ttf?t=1577176201529') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('../../styles/fonts/keyword.svg?t=1577176201529#iconfont') format('svg');
+}
+.#{$base}-icon {
+  font-family: "Keyword" !important;
+  font-size: 0.75em;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &-delete::before {
+    content: "\e601";
+    display: inline-block;
+    margin-right: computerEM(2);
+  }
+}
+.#{$base}-keyboard {
+  width: computerEM(395);
+  height: computerEM(614);
+  font-size: inherit;
+  @include bgCompose;
+  background-image: url('../../asserts/keyboard-bg.png');
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  flex-direction: column;
+  font-family: "Keyword" !important;
+  .input-block {
+    border-bottom: 2px solid rgba(30, 180, 255, 1);
+    height: computerEM(88);
+    width: computerEM(270);
+    margin-bottom: computerEM(25);
+    .input-value-block {
+      text-align: center;
+      font-size: inherit;
+      color: rgba(29, 180, 255, 1);
+      width: 100%;
+      height: 100%;
+      .edit-block {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: computerEM(13);
+      }
+    }
+  }
+  .a {
+    overflow: hidden;
+    padding: 0 computerEM(62);
+    margin-bottom: computerEM(-4);
+    .b {
+      margin-bottom: convertComputerEM(34, 32);
+      margin-right: convertComputerEM(30, 32);
+      float: left;
+      width: convertComputerEM(70, 32);
+      height: convertComputerEM(70, 32);
+      text-align: center;
+      line-height: convertComputerEM(65, 32);
+      border: 2px solid rgba(211, 213, 219, 1);
+      border-radius: 100%;
+      font-size: computerEM(32);
+      font-family: 'DINCond Bold', "Noto Sans TC", serif;
+      font-weight: 900;
+      color: rgba(211, 213, 219, 1);
+      cursor: pointer;
+      user-select: none;
+      &:nth-of-type(3n) {
+        margin-right: 0;
+      }
+      &:hover {
+        color: #F8D850;
+        border: 2px solid #F8D850;
+      }
+      .b-icon {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .button {
+    margin-top: computerEM(-4);
+    padding-bottom: computerEM(28);
+    .button-icon {
+      width: computerEM(278);
+      height: computerEM(59);
+      cursor: pointer;
+    }
+  }
+}

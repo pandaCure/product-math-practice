@@ -15,26 +15,14 @@ const astDOM = t.jsxElement(
             28}em;height: ${32 / 28}em;line-height: ${32 /
             28}em;text-align:center;margin-left:0.2777777777777778em;`
         )
-      ),
-      t.jsxAttribute(
-        t.jsxIdentifier("dangerouslySetInnerHTML"),
-        t.jsxExpressionContainer(
-          t.objectExpression(
-            [t.objectProperty(t.identifier('__html'), t.stringLiteral('<span>111</span>'))]
-          )
-        )
       )
     ],
     false
   ),
   t.jsxClosingElement(t.jsxIdentifier("span")),
-  // TODO 符号怎么办
-  [
-    t.jsxText("568")
-  ],
+  [t.jsxText("3")],
   false
 );
-// t.stringLiteral('<span>111</span>')
 const KatexMathAST = () => {
   const traverseOpts = useMemo(() => {
     return {
