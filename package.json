@@ -1,5 +1,5 @@
 {
-  "name": "math-practice",
+  "name": "@zzy/math-practice",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
