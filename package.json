@@ -55,5 +55,6 @@
     "react-dom": "^16.12.0",
     "react-latex": "^1.5.0",
     "react-mathquill": "^0.1.9"
-  }
+  },
+  "name": "product-math-practice"
 }
