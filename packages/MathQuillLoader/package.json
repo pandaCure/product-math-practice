@@ -1,6 +1,6 @@
 {
   "name": "mathquillloader",
-  "version": "1.0.2-alpha.0",
+  "version": "1.0.2",
   "description": "use import mathquill and auto load style",
   "author": "pandaCure <zzyamor@163.com>",
   "license": "ISC",
