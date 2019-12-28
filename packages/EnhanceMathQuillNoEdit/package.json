@@ -1,0 +1,33 @@
+{
+  "name": "enhance-mathquill-no-edit",
+  "version": "1.0.0",
+  "author": "pandaCure <zzyamor@163.com>",
+  "homepage": "https://github.com/pandaCure/product-math-practice#readme",
+  "license": "ISC",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "esnext": "esnext/index.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "cjs",
+    "esm",
+    "types",
+    "types",
+    "style",
+    "esnext"
+  ],
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pandaCure/product-math-practice.git",
+    "directory": "packages/EnhanceMathQuillNoEdit"
+  },
+  "scripts": {
+    "compile:esm": "tsc -p ./tsconfig.json --outDir esm",
+    "compile:cjs": "tsc -m commonjs --outDir cjs -p ./tsconfig.json",
+    "compile:esnext": "tsc -t esnext --outDir esnext -p ./tsconfig.json"
+  },
+  "dependencies": {
+    "mathquillloader": "^1.0.4-alpha.0"
+  }
+}
