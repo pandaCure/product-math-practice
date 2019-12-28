@@ -1,5 +1,5 @@
 {
-  "name": "math-quill-loader",
+  "name": "mathquillloader",
   "version": "1.0.3-alpha.0",
   "description": "use import mathquill and auto load style",
   "author": "pandaCure <zzyamor@163.com>",
@@ -35,5 +35,6 @@
     "exports-loader": "^0.7.0",
     "imports-loader": "^0.8.0",
     "jquery": "^3.4.1"
-  }
+  },
+  "gitHead": "942cab5bbb2872053ccbad64f53c3ba650956ac7"
 }

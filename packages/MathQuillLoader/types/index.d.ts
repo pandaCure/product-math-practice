@@ -1,2 +1,2 @@
-import { MQ, MathQuill } from './MathQuillLoader';
-export { MathQuill, MQ };
+import { MQ, MathQuill, MathFieldReturn, IMathFieldConfig, IMathQuill } from './MathQuillLoader';
+export { MathQuill, MQ, MathFieldReturn, IMathFieldConfig, IMathQuill };
