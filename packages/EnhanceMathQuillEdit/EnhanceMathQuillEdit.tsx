@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useCallback, useState, StyleHTMLAttributes } from 'react'
-import { MathQuill, MQ, MathFieldReturn } from './MathQuillLoader'
+import React, { useRef, useEffect, useState } from 'react'
+import { MathQuill, MathFieldReturn } from 'mathquillloader'
 import { parse, traverse, NodePath } from '@babel/core'
 import generator from '@babel/generator'
 import * as traverseTypes from '@babel/traverse'
