@@ -40,7 +40,7 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
   const ele = useRef<HTMLSpanElement>(null)
   const cacheMQ = useRef<MathFieldReturn | null>(null)
   useEffect(() => {
-    if (ele!.current) {
+    if (ele!.current && !cacheMQ!.current) {
       const mq = MathQuill.MathField(ele.current, {
         handlers: {
           edit: (mathField: MathFieldReturn) => {
@@ -51,7 +51,7 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
       cacheMQ.current = mq
       getMq(mq)
     }
-  }, [])
+  }, [getMq, handleInputExpression])
   useEffect(() => {
     if (cacheMQ!.current) {
       const mq = cacheMQ.current
@@ -68,7 +68,7 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
       // return generator(ast).code.replace(/\;$/, '');
       setKatexRenderString(generator(ast).code.replace(/\;$/, ''))
     }
-  }, [mathExpression])
+  }, [mathExpression, traverseOpts])
   return (
     <>
       <span ref={ele} style={{...style, position: "absolute", zIndex: edit ? 1 : -1, opacity: edit ? 1 :  0}}/>

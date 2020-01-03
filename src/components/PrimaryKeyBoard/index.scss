@@ -1,7 +1,7 @@
 $base: zzy;
 $baseEM: 28;
-@function computerEM($value) {
-  @return ($value / $baseEM) * 1em;
+@function computerKeywordEM($value) {
+  @return ($value / $baseQuestionEM) * 1em;
 }
 @function convertComputerEM($value, $rate) {
   @return ($value / $rate) * 1em
@@ -33,12 +33,12 @@ $baseEM: 28;
   &-delete::before {
     content: "\e601";
     display: inline-block;
-    margin-right: computerEM(2);
+    margin-right: computerKeywordEM(2);
   }
 }
 .#{$base}-keyboard {
-  width: computerEM(395);
-  height: computerEM(614);
+  width: computerKeywordEM(395);
+  height: computerKeywordEM(614);
   font-size: inherit;
   @include bgCompose;
   background-image: url('../../asserts/keyboard-bg.png');
@@ -49,9 +49,9 @@ $baseEM: 28;
   font-family: "Keyword" !important;
   .input-block {
     border-bottom: 2px solid rgba(30, 180, 255, 1);
-    height: computerEM(88);
-    width: computerEM(270);
-    margin-bottom: computerEM(25);
+    height: computerKeywordEM(88);
+    width: computerKeywordEM(270);
+    margin-bottom: computerKeywordEM(25);
     .input-value-block {
       text-align: center;
       font-size: inherit;
@@ -64,14 +64,14 @@ $baseEM: 28;
         display: flex;
         align-items: flex-end;
         justify-content: center;
-        padding-bottom: computerEM(13);
+        padding-bottom: computerKeywordEM(13);
       }
     }
   }
   .a {
     overflow: hidden;
-    padding: 0 computerEM(62);
-    margin-bottom: computerEM(-4);
+    padding: 0 computerKeywordEM(62);
+    margin-bottom: computerKeywordEM(-4);
     .b {
       margin-bottom: convertComputerEM(34, 32);
       margin-right: convertComputerEM(30, 32);
@@ -82,7 +82,7 @@ $baseEM: 28;
       line-height: convertComputerEM(65, 32);
       border: 2px solid rgba(211, 213, 219, 1);
       border-radius: 100%;
-      font-size: computerEM(32);
+      font-size: computerKeywordEM(32);
       font-family: 'DINCond Bold', "Noto Sans TC", serif;
       font-weight: 900;
       color: rgba(211, 213, 219, 1);
@@ -107,11 +107,11 @@ $baseEM: 28;
     }
   }
   .button {
-    margin-top: computerEM(-4);
-    padding-bottom: computerEM(28);
+    margin-top: computerKeywordEM(-4);
+    padding-bottom: computerKeywordEM(28);
     .button-icon {
-      width: computerEM(278);
-      height: computerEM(59);
+      width: computerKeywordEM(278);
+      height: computerKeywordEM(59);
       cursor: pointer;
     }
   }

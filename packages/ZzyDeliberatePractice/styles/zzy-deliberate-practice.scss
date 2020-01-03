@@ -1,0 +1,9 @@
+@import './base.scss';
+@import './show-question.scss';
+@import './keyword.scss';
+.#{$base}-container {
+  font-size: inherit;
+  display: flex;
+  align-items: center;
+}
+

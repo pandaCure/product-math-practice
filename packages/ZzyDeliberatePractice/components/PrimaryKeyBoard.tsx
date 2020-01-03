@@ -1,17 +1,18 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import classnames from 'classnames'
-import './index.scss'
-import submitButton from '@/asserts/submit-button.png'
-import EnhanceMathQuillEdit from '@/components/EnhanceMathQuill/EnhanceMathQuillEdit'
-import { MathExpressionContext } from '@/components/mathExpressionContext'
+import submitButton from '../asserts/submit-button.png'
+import EnhanceMathQuillEdit from 'enhance-mathquill-edit'
+import { MathExpressionContext } from '../mathExpressionContext'
 const KEY = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
 const PrimaryKeyBoard = () => {
   const [edit, setEdit] = useState(true)
   const [userAnswer, setUserAnswer] = useState('')
   const [mq, setMq] = useState({})
   const [mathExpression, setMathExpression] = useState({ key: '' })
-  const { dispatch, enhanceDispatch, state } = useContext(MathExpressionContext)
-  const deleteFlag = useRef<boolean|null>(false)
+  const { dispatch, enhanceDispatch, state, prefixCls } = useContext(
+    MathExpressionContext
+  )
+  const deleteFlag = useRef<boolean | null>(false)
   const handleClickKeyBoard = (key: any) => {
     setMathExpression({ key })
   }
@@ -58,10 +59,13 @@ const PrimaryKeyBoard = () => {
     mq.blur()
   }
   return (
-    <div className="zzy-keyboard" onClick={cancelEditExpression}>
-      <div className="input-block" onClick={EditExpression}>
-        <div className="input-value-block">
-          <div className="edit-block">
+    <div
+      className={`${prefixCls}-keyboard-container`}
+      onClick={cancelEditExpression}
+    >
+      <div className={`${prefixCls}-input-block`} onClick={EditExpression}>
+        <div className={`${prefixCls}-input-value-block`}>
+          <div className={`${prefixCls}-edit-block`}>
             <EnhanceMathQuillEdit
               mathExpression={mathExpression}
               handleInputExpression={handleInputExpression}
@@ -71,23 +75,36 @@ const PrimaryKeyBoard = () => {
           </div>
         </div>
       </div>
-      <ul className="a">
+      <ul className={`${prefixCls}-keyboard`}>
         {KEY.map((v, i) => {
           return (
-            <li className="b" key={i} onClick={() => handleClickKeyBoard(v)}>
+            <li
+              className={`${prefixCls}-keyboard-key`}
+              key={i}
+              onClick={() => handleClickKeyBoard(v)}
+            >
               {v}
             </li>
           )
         })}
-        <li className="b" onClick={handleKeyBoardDelete}>
-          <div className="zzy-icon zzy-icon-delete b-icon" />
+        <li
+          className={`${prefixCls}-keyboard-key`}
+          onClick={handleKeyBoardDelete}
+        >
+          <div
+            className={classnames(
+              'zzy-icon',
+              'zzy-icon-delete',
+              `${prefixCls}-key-icon`
+            )}
+          />
         </li>
       </ul>
-      <div className="button">
+      <div className={`${prefixCls}-keyboard-button`}>
         <img
           src={submitButton}
           alt="submit button"
-          className="button-icon"
+          className={`${prefixCls}-keyboard-button-icon`}
           onClick={handleSubmitAnswer}
         />
       </div>

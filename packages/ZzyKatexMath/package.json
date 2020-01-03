@@ -1,0 +1,45 @@
+{
+  "name": "zzy-katex-math",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "pandaCure <zzyamor@163.com>",
+  "homepage": "https://github.com/pandaCure/product-math-practice#readme",
+  "license": "ISC",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "esnext": "esnext/index.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "cjs",
+    "esm",
+    "types",
+    "esnext"
+  ],
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pandaCure/product-math-practice.git"
+  },
+  "scripts": {
+    "compile:all": "npm run clean && npm run compile:esm && npm run compile:cjs && npm run compile:esnext",
+    "clean": "rimraf cjs && rimraf esm && rimraf esnext && rimraf types",
+    "compile:esm": "tsc -p ./tsconfig.json --outDir esm",
+    "compile:cjs": "tsc -m commonjs --outDir cjs -p ./tsconfig.json",
+    "compile:esnext": "tsc -t esnext --outDir esnext -p ./tsconfig.json"
+  },
+  "bugs": {
+    "url": "https://github.com/pandaCure/product-math-practice/issues"
+  },
+  "dependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/generator": "^7.7.7",
+    "@babel/traverse": "^7.7.4",
+    "@babel/types": "^7.7.4",
+    "classnames": "^2.2.6",
+    "katex": "^0.11.1",
+    "react": "^16.12.0"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.0"
+  }
+}

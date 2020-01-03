@@ -1,42 +1,35 @@
-$base: zzy;
-$baseQuestionEM: 28;
-@function computerQuestionEM($value) {
-  @return ($value / $baseQuestionEM) * 1em;
-}
-@mixin bgCompose {
-  background-repeat: no-repeat;
-  background-size: 100%;
-}
+
+
 .#{$base}-show-question {
   @include bgCompose;
-  background-image: url(../../asserts/show-question-bg.png);
+  background-image: url(../asserts/show-question-bg.png);
   width: computerQuestionEM(565);
   height: computerQuestionEM(610);
   box-sizing: border-box;
   padding: computerQuestionEM(52) computerQuestionEM(15) computerQuestionEM(18);
   margin-right: computerQuestionEM(30);
-  .question-block {
+  .#{$base}-question-block {
     height: computerQuestionEM(513);
     max-height: computerQuestionEM(513);
     overflow: hidden;
     position: relative;
     display: flex;
     justify-content: center;
-    .question-view {
+    .#{$base}-question-view {
       display: flex;
       flex-direction: column;
       padding: 0 computerQuestionEM(20);
       transition: all 0.3s ease;
     }
   }
-  .base-color {
+  .#{$base}-base-color {
     color: rgba(255, 255, 255, 0.3);
     border-color: rgba(255, 255, 255, 0.3);
   }
-  .change-color {
+  .#{$base}-change-color {
     color: #fff;
   }
-  .base-item {
+  .#{$base}-base-item {
     padding-bottom: computerQuestionEM(33);
   }
 }
