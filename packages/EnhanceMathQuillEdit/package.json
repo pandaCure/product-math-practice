@@ -1,6 +1,6 @@
 {
   "name": "enhance-mathquill-edit",
-  "version": "1.0.1-alpha.0",
+  "version": "1.0.1",
   "description": "enhance mathquill edit react component",
   "author": "pandaCure <zzyamor@163.com>",
   "license": "ISC",
@@ -35,7 +35,7 @@
     "@babel/generator": "^7.7.7",
     "@babel/traverse": "^7.7.4",
     "@babel/types": "^7.7.4",
-    "mathquillloader": "^1.0.4-alpha.0",
+    "mathquillloader": "^1.0.4",
     "react": "^16.12.0"
   }
 }
