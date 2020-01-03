@@ -53,7 +53,7 @@ var EnhanceMathQuillNoEdit = function (_a) {
         });
         core_1.traverse(ast, __assign({}, traverseOpts));
         return generator_1.default(ast).code.replace(/\;$/, '');
-    }, [mathExpression]);
+    }, [mathExpression, traverseOpts]);
     return react_1.default.createElement("span", { dangerouslySetInnerHTML: { __html: html } });
 };
 EnhanceMathQuillNoEdit.defaultProps = defaultProps;

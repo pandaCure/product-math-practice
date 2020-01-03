@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/app.js"
+    "start": "node server/app.js",
+    "build": "lerna run compile:all --parallel"
   },
   "repository": {
     "type": "git",

@@ -26,6 +26,8 @@
     "directory": "packages/EnhanceMathQuillEdit"
   },
   "scripts": {
+    "compile:all": "npm run clean && npm run compile:esm && npm run compile:cjs && npm run compile:esnext",
+    "clean": "rimraf cjs && rimraf esm && rimraf esnext && rimraf types",
     "compile:esm": "tsc -p ./tsconfig.json --outDir esm",
     "compile:cjs": "tsc -m commonjs --outDir cjs -p ./tsconfig.json",
     "compile:esnext": "tsc -t esnext --outDir esnext -p ./tsconfig.json"
@@ -37,5 +39,8 @@
     "@babel/types": "^7.7.4",
     "mathquillloader": "^1.0.4",
     "react": "^16.12.0"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.0"
   }
 }

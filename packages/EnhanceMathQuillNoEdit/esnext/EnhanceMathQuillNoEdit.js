@@ -59,7 +59,7 @@ const EnhanceMathQuillNoEdit = ({ mathExpression, traverseOpts }) => {
             ...traverseOpts
         });
         return generator_1.default(ast).code.replace(/\;$/, '');
-    }, [mathExpression]);
+    }, [mathExpression, traverseOpts]);
     return react_1.default.createElement("span", { dangerouslySetInnerHTML: { __html: html } });
 };
 EnhanceMathQuillNoEdit.defaultProps = defaultProps;

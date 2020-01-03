@@ -46,7 +46,7 @@ const EnhanceMathQuillEdit = (props) => {
             cacheMQ.current = mq;
             getMq(mq);
         }
-    }, []);
+    }, [getMq, handleInputExpression]);
     react_1.useEffect(() => {
         if (cacheMQ.current) {
             const mq = cacheMQ.current;
@@ -63,7 +63,7 @@ const EnhanceMathQuillEdit = (props) => {
             // return generator(ast).code.replace(/\;$/, '');
             setKatexRenderString(generator_1.default(ast).code.replace(/\;$/, ''));
         }
-    }, [mathExpression]);
+    }, [mathExpression, traverseOpts]);
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("span", { ref: ele, style: { ...style, position: "absolute", zIndex: edit ? 1 : -1, opacity: edit ? 1 : 0 } }),
         react_1.default.createElement("span", { dangerouslySetInnerHTML: { __html: katexRenderString }, style: { position: "absolute", zIndex: edit ? -1 : 1, opacity: edit ? 0 : 1 } })));

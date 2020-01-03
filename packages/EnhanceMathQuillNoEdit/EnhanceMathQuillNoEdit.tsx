@@ -62,7 +62,7 @@ const EnhanceMathQuillNoEdit: React.FC<IEnhanceMathQuillNoEdit> = ({
       ...traverseOpts
     })
     return generator(ast).code.replace(/\;$/, '')
-  }, [mathExpression])
+  }, [mathExpression, traverseOpts])
   return <span dangerouslySetInnerHTML={{ __html: html }} />
 }
 EnhanceMathQuillNoEdit.defaultProps = defaultProps
