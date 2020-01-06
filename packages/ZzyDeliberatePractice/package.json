@@ -13,7 +13,9 @@
     "cjs",
     "esm",
     "types",
-    "esnext"
+    "esnext",
+    "styles",
+    "asserts"
   ],
   "sideEffects": [
     "styles",
@@ -36,7 +38,12 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "enhance-mathquill-edit": "^1.0.2-alpha.0",
+    "enhance-mathquill-no-edit": "^1.0.2-alpha.0",
+    "mathquillloader": "^1.0.5-alpha.0",
     "react": "^16.12.0",
     "zzy-katex-math": "^1.0.0"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.0"
   }
 }

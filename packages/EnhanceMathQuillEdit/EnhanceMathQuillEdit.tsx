@@ -9,8 +9,8 @@ export interface IEnhanceMathQuillEdit {
   handleInputExpression: (mathExpression: string, mathField: MathFieldReturn) => void
   edit: boolean
   getMq: (mathField: MathFieldReturn) => void
-  traverseOpts?: traverseTypes.TraverseOptions
-  style?: React.CSSProperties
+  // traverseOpts?: traverseTypes.TraverseOptions
+  // style?: React.CSSProperties
 }
 const defaultProps = {
   traverseOpts: {
@@ -26,8 +26,9 @@ const defaultProps = {
     fontFamily: "Keyword"
   }
 }
-type IEnhanceMathQuillEditType = IEnhanceMathQuillEdit & typeof defaultProps
-const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
+type defaultPropsType = typeof defaultProps
+type IEnhanceMathQuillEditType = IEnhanceMathQuillEdit & Partial<defaultPropsType>
+const EnhanceMathQuillEdit = (props:IEnhanceMathQuillEditType) => {
   const {
     mathExpression,
     handleInputExpression,

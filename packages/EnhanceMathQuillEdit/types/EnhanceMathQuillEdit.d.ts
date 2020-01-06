@@ -1,7 +1,6 @@
-import React from 'react';
+/// <reference types="react" />
 import { MathFieldReturn } from 'mathquillloader';
 import { NodePath } from '@babel/core';
-import * as traverseTypes from '@babel/traverse';
 import * as t from '@babel/types';
 export interface IEnhanceMathQuillEdit {
     mathExpression: {
@@ -10,8 +9,6 @@ export interface IEnhanceMathQuillEdit {
     handleInputExpression: (mathExpression: string, mathField: MathFieldReturn) => void;
     edit: boolean;
     getMq: (mathField: MathFieldReturn) => void;
-    traverseOpts?: traverseTypes.TraverseOptions;
-    style?: React.CSSProperties;
 }
 declare const defaultProps: {
     traverseOpts: {
@@ -21,6 +18,17 @@ declare const defaultProps: {
         fontFamily: string;
     };
 };
-declare type IEnhanceMathQuillEditType = IEnhanceMathQuillEdit & typeof defaultProps;
-declare const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType>;
+declare type defaultPropsType = typeof defaultProps;
+declare type IEnhanceMathQuillEditType = IEnhanceMathQuillEdit & Partial<defaultPropsType>;
+declare const EnhanceMathQuillEdit: {
+    (props: IEnhanceMathQuillEditType): JSX.Element;
+    defaultProps: {
+        traverseOpts: {
+            JSXAttribute(nodePath: NodePath<t.JSXAttribute>): void;
+        };
+        style: {
+            fontFamily: string;
+        };
+    };
+};
 export default EnhanceMathQuillEdit;

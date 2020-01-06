@@ -1,7 +1,8 @@
 {
   "packages": [
     "packages/*",
-    "packages/components/*"
+    "packages/components/*",
+    "src"
   ],
   "version": "independent",
   "npmClient": "npm",

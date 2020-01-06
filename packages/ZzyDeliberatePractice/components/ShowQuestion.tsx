@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react'
-import KatexMathDiv from 'zzy-katex-math'
-import { MathExpressionContext } from '../mathExpressionContext'
+import KatexMathDiv from './KatexMathDiv'
+import { MathExpressionContext, IMathExpression } from '../mathExpressionContext'
 import classnames from 'classnames'
 const ShowQuestion = () => {
   const { state, prefixCls } = useContext(MathExpressionContext)
@@ -18,7 +18,7 @@ const ShowQuestion = () => {
     <div className={`${prefixCls}-show-question`}>
       <div className={`${prefixCls}-question-block`}>
         <ul className={`${prefixCls}-question-view`} ref={uiDOM}>
-          {addMathExpression.map((v, i) => {
+          {addMathExpression.map((v:IMathExpression, i:number) => {
             return (
               <li
                 key={i}

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import PrimaryKeyBoard from './PrimaryKeyBoard'
+import PrimaryKeyBoard from './components/PrimaryKeyBoard'
 import {MathExpressionContextProvider, MathExpressionContext} from './mathExpressionContext'
 import ShowQuestion from './components/ShowQuestion'
 const ZzyDeliberatePractice = () => {

@@ -2,12 +2,13 @@ import React, { useState, useContext, useEffect, useRef } from 'react'
 import classnames from 'classnames'
 import submitButton from '../asserts/submit-button.png'
 import EnhanceMathQuillEdit from 'enhance-mathquill-edit'
+import { MathFieldReturn } from 'mathquillloader'
 import { MathExpressionContext } from '../mathExpressionContext'
 const KEY = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
 const PrimaryKeyBoard = () => {
   const [edit, setEdit] = useState(true)
   const [userAnswer, setUserAnswer] = useState('')
-  const [mq, setMq] = useState({})
+  const [mq, setMq] = useState<MathFieldReturn|null>(null)
   const [mathExpression, setMathExpression] = useState({ key: '' })
   const { dispatch, enhanceDispatch, state, prefixCls } = useContext(
     MathExpressionContext
@@ -16,7 +17,10 @@ const PrimaryKeyBoard = () => {
   const handleClickKeyBoard = (key: any) => {
     setMathExpression({ key })
   }
-  const handleInputExpression = (latex, mathField) => {
+  const handleInputExpression = (
+    latex: string,
+    mathField: MathFieldReturn
+  ) => {
     if (!latex && !deleteFlag!.current) return false
     // TODO XSS攻击过滤
     setUserAnswer(latex)
@@ -32,10 +36,10 @@ const PrimaryKeyBoard = () => {
   const EditExpression = (e: any) => {
     e.stopPropagation()
     setEdit(true)
-    mq.focus()
+    mq!.focus()
   }
   const cancelEditExpression = () => setEdit(false)
-  const getMq = mq => setMq(mq)
+  const getMq = (mq: MathFieldReturn) => setMq(mq)
   const handleSubmitAnswer = () => {
     // TODO 提示必填 否则进入不了下一题
     if (!userAnswer) return false
@@ -47,7 +51,8 @@ const PrimaryKeyBoard = () => {
       // 下一步题处理
       console.log(data)
       setEdit(true)
-      mq.latex('').blur()
+      mq!.latex('')
+      mq!.blur()
     })
   }
   const handleKeyBoardDelete = (e: any) => {
@@ -55,8 +60,8 @@ const PrimaryKeyBoard = () => {
     deleteFlag.current = true
     e.stopPropagation()
     setEdit(true)
-    mq.keystroke('Backspace')
-    mq.blur()
+    mq!.keystroke('Backspace')
+    mq!.blur()
   }
   return (
     <div
