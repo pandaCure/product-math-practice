@@ -19,6 +19,10 @@ $baseQuestionEM: 28;
     url(../asserts/fonts/DINCond-Bold.otf) format('opentype');
 }
 @font-face {
+  font-family: DIN !important;
+  src: local("DIN-BoldItalic"), url(../asserts/fonts/DIN-BoldItalic.otf) format('opentype');
+}
+@font-face {
   font-family: 'Keyword';
   src: url('../asserts/fonts/keyword.eot?t=1577176201529'); /* IE9 */
   src: url('../asserts/fonts/keyword.eot?t=1577176201529#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -26,6 +30,10 @@ $baseQuestionEM: 28;
   url('../asserts/fonts/keyword.woff?t=1577176201529') format('woff'),
   url('../asserts/fonts/keyword.ttf?t=1577176201529') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
   url('../asserts/fonts/keyword.svg?t=1577176201529#iconfont') format('svg');
+}
+@font-face {
+  font-family: "DIN Bold" !important;
+  src: local("DIN-BoldItalic"), url(../asserts/fonts/DINAlternateBold.ttf) format("truetype");
 }
 .#{$base}-icon {
   font-family: "Keyword" !important;
@@ -42,4 +50,7 @@ $baseQuestionEM: 28;
 @mixin bgCompose {
   background-repeat: no-repeat;
   background-size: 100%;
+}
+span {
+  font: inherit;
 }

@@ -1,8 +1,5 @@
 .__katex-normal-style {
-  @font-face {
-    font-family: DIN !important;
-    src: local("DIN-BoldItalic"), url(../asserts/fonts/DIN-BoldItalic.otf) format('opentype');
-  }
+  font-family: DIN, "Noto Sans TC", serif;
   .katex {
     // font: normal 1.21em DIN, "Noto Sans TC", serif;
     font-family: DIN, "Noto Sans TC", serif;

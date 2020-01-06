@@ -1,11 +1,8 @@
 .math-quill-hack {
-  @font-face {
-    font-family: "DIN Bold" !important;
-    src: local("DIN-BoldItalic"), url(../asserts/fonts/DINAlternateBold.ttf) format("truetype");
-  }
   .mq-editable-field {
     display: -moz-inline-box;
     display: inline-block;
+    padding: 0 !important;
   }
   .mq-editable-field .mq-cursor {
     border-left: 1px solid black;
