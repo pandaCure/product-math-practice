@@ -1,0 +1,22 @@
+..#{$base}-question {
+  display: flex;
+  align-items: center;
+  font-size: 1 / 1.21 * 1em;
+  // TODO 为什么不能继承边的颜色属性
+  .#{$base}-answer {
+    font-family: DIN, "Noto Sans TC", serif;
+    font-weight: normal;
+    font-size: 1.21em;
+    line-height: 1.2;
+    text-indent: 0;
+    text-rendering: auto;
+    margin-left:0.2777777777777778em;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 0 computerEM(8);
+    min-width: computerEM(54);
+    min-height: computerEM(32);
+  }
+  .#{$base}-change-border-color {
+    border-color: rgba(30, 180, 255, 1);
+  }
+}

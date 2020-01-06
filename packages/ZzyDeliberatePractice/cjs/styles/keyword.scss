@@ -1,0 +1,80 @@
+.#{$base}-keyboard-container {
+  width: computerKeywordEM(395);
+  height: computerKeywordEM(614);
+  font-size: inherit;
+  @include bgCompose;
+  background-image: url('../../asserts/keyboard-bg.png');
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  flex-direction: column;
+  font-family: "Keyword" !important;
+  .#{$base}-input-block {
+    border-bottom: 2px solid rgba(30, 180, 255, 1);
+    height: computerKeywordEM(88);
+    width: computerKeywordEM(270);
+    margin-bottom: computerKeywordEM(25);
+    .#{$base}-input-value-block {
+      text-align: center;
+      font-size: inherit;
+      color: rgba(29, 180, 255, 1);
+      width: 100%;
+      height: 100%;
+      .#{$base}-edit-block {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: computerKeywordEM(13);
+      }
+    }
+  }
+  .#{$base}-keyboard {
+    overflow: hidden;
+    padding: 0 computerKeywordEM(62);
+    margin-bottom: computerKeywordEM(-4);
+    .#{$base}-keyboard-key {
+      margin-bottom: convertComputerEM(34, 32);
+      margin-right: convertComputerEM(30, 32);
+      float: left;
+      width: convertComputerEM(70, 32);
+      height: convertComputerEM(70, 32);
+      text-align: center;
+      line-height: convertComputerEM(65, 32);
+      border: 2px solid rgba(211, 213, 219, 1);
+      border-radius: 100%;
+      font-size: computerKeywordEM(32);
+      font-family: 'DINCond Bold', "Noto Sans TC", serif;
+      font-weight: 900;
+      color: rgba(211, 213, 219, 1);
+      cursor: pointer;
+      user-select: none;
+      &:nth-of-type(3n) {
+        margin-right: 0;
+      }
+      &:hover {
+        color: #F8D850;
+        border: 2px solid #F8D850;
+      }
+      .#{$base}-key-icon {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .#{$base}-button {
+    margin-top: computerKeywordEM(-4);
+    padding-bottom: computerKeywordEM(28);
+    .#{$base}-button-icon {
+      width: computerKeywordEM(278);
+      height: computerKeywordEM(59);
+      cursor: pointer;
+    }
+  }
+}
