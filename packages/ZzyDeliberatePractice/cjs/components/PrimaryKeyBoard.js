@@ -23,6 +23,7 @@ var PrimaryKeyBoard = function () {
     var _d = react_1.useState({ key: '' }), mathExpression = _d[0], setMathExpression = _d[1];
     var _e = react_1.useContext(mathExpressionContext_1.MathExpressionContext), dispatch = _e.dispatch, enhanceDispatch = _e.enhanceDispatch, state = _e.state, prefixCls = _e.prefixCls;
     var deleteFlag = react_1.useRef(false);
+    var cacheCurrentDoIndex = react_1.useRef(0);
     var handleClickKeyBoard = function (e, key) {
         e.stopPropagation();
         setMathExpression({ key: key });
@@ -35,11 +36,13 @@ var PrimaryKeyBoard = function () {
         deleteFlag.current = false;
     };
     react_1.useEffect(function () {
-        dispatch({
-            type: 'changeMathExpression',
-            answerMathExpression: userAnswer,
-            currentDoProblemId: state.addition.currentDoProblemId
-        });
+        if (cacheCurrentDoIndex.current === state.addition.currentDoProblemId) {
+            dispatch({
+                type: 'changeMathExpression',
+                answerMathExpression: userAnswer,
+                currentDoProblemId: state.addition.currentDoProblemId
+            });
+        }
     }, [dispatch, state.addition.currentDoProblemId, userAnswer]);
     var EditExpression = function (e) {
         e.stopPropagation();
@@ -51,7 +54,8 @@ var PrimaryKeyBoard = function () {
         setEdit(false);
     };
     var getMq = function (mq) { return setMq(mq); };
-    var handleSubmitAnswer = function () {
+    var handleSubmitAnswer = function (e) {
+        e.stopPropagation();
         // TODO 提示必填 否则进入不了下一题
         if (!userAnswer)
             return false;
@@ -64,6 +68,8 @@ var PrimaryKeyBoard = function () {
             setEdit(true);
             mq.latex('');
             mq.blur();
+            setUserAnswer('');
+            cacheCurrentDoIndex.current++;
         });
     };
     var handleKeyBoardDelete = function (e) {

@@ -23,6 +23,7 @@ const PrimaryKeyBoard = () => {
     const [mathExpression, setMathExpression] = react_1.useState({ key: '' });
     const { dispatch, enhanceDispatch, state, prefixCls } = react_1.useContext(mathExpressionContext_1.MathExpressionContext);
     const deleteFlag = react_1.useRef(false);
+    const cacheCurrentDoIndex = react_1.useRef(0);
     const handleClickKeyBoard = (e, key) => {
         e.stopPropagation();
         setMathExpression({ key });
@@ -35,11 +36,13 @@ const PrimaryKeyBoard = () => {
         deleteFlag.current = false;
     };
     react_1.useEffect(() => {
-        dispatch({
-            type: 'changeMathExpression',
-            answerMathExpression: userAnswer,
-            currentDoProblemId: state.addition.currentDoProblemId
-        });
+        if (cacheCurrentDoIndex.current === state.addition.currentDoProblemId) {
+            dispatch({
+                type: 'changeMathExpression',
+                answerMathExpression: userAnswer,
+                currentDoProblemId: state.addition.currentDoProblemId
+            });
+        }
     }, [dispatch, state.addition.currentDoProblemId, userAnswer]);
     const EditExpression = (e) => {
         e.stopPropagation();
@@ -51,7 +54,8 @@ const PrimaryKeyBoard = () => {
         setEdit(false);
     };
     const getMq = (mq) => setMq(mq);
-    const handleSubmitAnswer = () => {
+    const handleSubmitAnswer = (e) => {
+        e.stopPropagation();
         // TODO 提示必填 否则进入不了下一题
         if (!userAnswer)
             return false;
@@ -64,6 +68,8 @@ const PrimaryKeyBoard = () => {
             setEdit(true);
             mq.latex('');
             mq.blur();
+            setUserAnswer('');
+            cacheCurrentDoIndex.current++;
         });
     };
     const handleKeyBoardDelete = (e) => {

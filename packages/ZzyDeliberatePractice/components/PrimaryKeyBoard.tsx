@@ -14,7 +14,7 @@ const PrimaryKeyBoard = () => {
     MathExpressionContext
   )
   const deleteFlag = useRef<boolean | null>(false)
-  const cacheCurrentDoIndex = useRef<number | null>(0)
+  const cacheCurrentDoIndex = useRef<number>(0)
   const handleClickKeyBoard = (e: any, key: any) => {
     e.stopPropagation()
     setMathExpression({ key })
