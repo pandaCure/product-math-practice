@@ -23,7 +23,8 @@ const PrimaryKeyBoard = () => {
     const [mathExpression, setMathExpression] = react_1.useState({ key: '' });
     const { dispatch, enhanceDispatch, state, prefixCls } = react_1.useContext(mathExpressionContext_1.MathExpressionContext);
     const deleteFlag = react_1.useRef(false);
-    const handleClickKeyBoard = (key) => {
+    const handleClickKeyBoard = (e, key) => {
+        e.stopPropagation();
         setMathExpression({ key });
     };
     const handleInputExpression = (latex, mathField) => {
@@ -45,7 +46,10 @@ const PrimaryKeyBoard = () => {
         setEdit(true);
         mq.focus();
     };
-    const cancelEditExpression = () => setEdit(false);
+    const cancelEditExpression = () => {
+        setMathExpression({ key: '' });
+        setEdit(false);
+    };
     const getMq = (mq) => setMq(mq);
     const handleSubmitAnswer = () => {
         // TODO 提示必填 否则进入不了下一题
@@ -76,7 +80,7 @@ const PrimaryKeyBoard = () => {
                     react_1.default.createElement(enhance_mathquill_edit_1.default, { mathExpression: mathExpression, handleInputExpression: handleInputExpression, edit: edit, getMq: getMq })))),
         react_1.default.createElement("ul", { className: `${prefixCls}-keyboard` },
             KEY.map((v, i) => {
-                return (react_1.default.createElement("li", { className: `${prefixCls}-keyboard-key`, key: i, onClick: () => handleClickKeyBoard(v) }, v));
+                return (react_1.default.createElement("li", { className: `${prefixCls}-keyboard-key`, key: i, onClick: (e) => handleClickKeyBoard(e, v) }, v));
             }),
             react_1.default.createElement("li", { className: `${prefixCls}-keyboard-key`, onClick: handleKeyBoardDelete },
                 react_1.default.createElement("div", { className: classnames_1.default(`${prefixCls}-icon`, `${prefixCls}-icon-delete`, `${prefixCls}-key-icon`) }))),

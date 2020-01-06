@@ -14,7 +14,8 @@ const PrimaryKeyBoard = () => {
     MathExpressionContext
   )
   const deleteFlag = useRef<boolean | null>(false)
-  const handleClickKeyBoard = (key: any) => {
+  const handleClickKeyBoard = (e: any, key: any) => {
+    e.stopPropagation()
     setMathExpression({ key })
   }
   const handleInputExpression = (
@@ -38,7 +39,10 @@ const PrimaryKeyBoard = () => {
     setEdit(true)
     mq!.focus()
   }
-  const cancelEditExpression = () => setEdit(false)
+  const cancelEditExpression = () => {
+    setMathExpression({ key: '' })
+    setEdit(false)
+  }
   const getMq = (mq: MathFieldReturn) => setMq(mq)
   const handleSubmitAnswer = () => {
     // TODO 提示必填 否则进入不了下一题
@@ -84,7 +88,7 @@ const PrimaryKeyBoard = () => {
             <li
               className={`${prefixCls}-keyboard-key`}
               key={i}
-              onClick={() => handleClickKeyBoard(v)}
+              onClick={(e) => handleClickKeyBoard(e, v)}
             >
               {v}
             </li>

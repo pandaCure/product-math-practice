@@ -32,7 +32,7 @@ var defaultProps = {
             var attrNode = nodePath.node.value;
             if (t.isStringLiteral(attrNode) && attrNode.value === "mq-editable-field mq-math-mode") {
                 var node = nodePath.getAllNextSiblings();
-                node.forEach(function (v) { return v.replaceWith(t.jsxAttribute(t.jsxIdentifier('style'), t.stringLiteral("font-family: 'Keyword' !important; opacity: 1"))); });
+                node.forEach(function (v) { return v.replaceWith(t.jsxAttribute(t.jsxIdentifier('style'), t.stringLiteral("font-family: 'DINCond Bold' !important; opacity: 1"))); });
             }
         }
     },

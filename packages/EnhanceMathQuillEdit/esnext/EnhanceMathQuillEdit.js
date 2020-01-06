@@ -21,7 +21,7 @@ const defaultProps = {
             const attrNode = nodePath.node.value;
             if (t.isStringLiteral(attrNode) && attrNode.value === "mq-editable-field mq-math-mode") {
                 const node = nodePath.getAllNextSiblings();
-                node.forEach(v => v.replaceWith(t.jsxAttribute(t.jsxIdentifier('style'), t.stringLiteral("font-family: 'Keyword' !important; opacity: 1"))));
+                node.forEach(v => v.replaceWith(t.jsxAttribute(t.jsxIdentifier('style'), t.stringLiteral("font-family: 'DINCond Bold' !important; opacity: 1"))));
             }
         }
     },

@@ -23,7 +23,8 @@ var PrimaryKeyBoard = function () {
     var _d = react_1.useState({ key: '' }), mathExpression = _d[0], setMathExpression = _d[1];
     var _e = react_1.useContext(mathExpressionContext_1.MathExpressionContext), dispatch = _e.dispatch, enhanceDispatch = _e.enhanceDispatch, state = _e.state, prefixCls = _e.prefixCls;
     var deleteFlag = react_1.useRef(false);
-    var handleClickKeyBoard = function (key) {
+    var handleClickKeyBoard = function (e, key) {
+        e.stopPropagation();
         setMathExpression({ key: key });
     };
     var handleInputExpression = function (latex, mathField) {
@@ -45,7 +46,10 @@ var PrimaryKeyBoard = function () {
         setEdit(true);
         mq.focus();
     };
-    var cancelEditExpression = function () { return setEdit(false); };
+    var cancelEditExpression = function () {
+        setMathExpression({ key: '' });
+        setEdit(false);
+    };
     var getMq = function (mq) { return setMq(mq); };
     var handleSubmitAnswer = function () {
         // TODO 提示必填 否则进入不了下一题
@@ -76,7 +80,7 @@ var PrimaryKeyBoard = function () {
                     react_1.default.createElement(enhance_mathquill_edit_1.default, { mathExpression: mathExpression, handleInputExpression: handleInputExpression, edit: edit, getMq: getMq })))),
         react_1.default.createElement("ul", { className: prefixCls + "-keyboard" },
             KEY.map(function (v, i) {
-                return (react_1.default.createElement("li", { className: prefixCls + "-keyboard-key", key: i, onClick: function () { return handleClickKeyBoard(v); } }, v));
+                return (react_1.default.createElement("li", { className: prefixCls + "-keyboard-key", key: i, onClick: function (e) { return handleClickKeyBoard(e, v); } }, v));
             }),
             react_1.default.createElement("li", { className: prefixCls + "-keyboard-key", onClick: handleKeyBoardDelete },
                 react_1.default.createElement("div", { className: classnames_1.default(prefixCls + "-icon", prefixCls + "-icon-delete", prefixCls + "-key-icon") }))),

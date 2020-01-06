@@ -54,6 +54,7 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
   }, [getMq, handleInputExpression])
   useEffect(() => {
     if (cacheMQ!.current) {
+      console.log(`------------------------>`, 'render')
       const mq = cacheMQ.current
       mq.write(mathExpression.key)
       const ast = parse(mq.el().outerHTML, {

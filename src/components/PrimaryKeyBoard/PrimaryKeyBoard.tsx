@@ -11,11 +11,13 @@ const PrimaryKeyBoard = () => {
   const [mq, setMq] = useState({})
   const [mathExpression, setMathExpression] = useState({ key: '' })
   const { dispatch, enhanceDispatch, state } = useContext(MathExpressionContext)
-  const deleteFlag = useRef<boolean|null>(false)
-  const handleClickKeyBoard = (key: any) => {
+  const deleteFlag = useRef<boolean | null>(false)
+  const handleClickKeyBoard = (e:any, key: any) => {
+    e.stopPropagation()
     setMathExpression({ key })
   }
   const handleInputExpression = (latex, mathField) => {
+    console.log('handle write ......')
     if (!latex && !deleteFlag!.current) return false
     // TODO XSS攻击过滤
     setUserAnswer(latex)
@@ -33,7 +35,10 @@ const PrimaryKeyBoard = () => {
     setEdit(true)
     mq.focus()
   }
-  const cancelEditExpression = () => setEdit(false)
+  const cancelEditExpression = () => {
+    setMathExpression({ key: '' })
+    setEdit(false)
+  }
   const getMq = mq => setMq(mq)
   const handleSubmitAnswer = () => {
     // TODO 提示必填 否则进入不了下一题
@@ -74,7 +79,7 @@ const PrimaryKeyBoard = () => {
       <ul className="a">
         {KEY.map((v, i) => {
           return (
-            <li className="b" key={i} onClick={() => handleClickKeyBoard(v)}>
+            <li className="b" key={i} onClick={(e) => handleClickKeyBoard(e, v)}>
               {v}
             </li>
           )
