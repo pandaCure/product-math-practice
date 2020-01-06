@@ -46,7 +46,7 @@ var EnhanceMathQuillEdit = function (props) {
     var ele = react_1.useRef(null);
     var cacheMQ = react_1.useRef(null);
     react_1.useEffect(function () {
-        if (ele.current) {
+        if (ele.current && !cacheMQ.current) {
             var mq = mathquillloader_1.MathQuill.MathField(ele.current, {
                 handlers: {
                     edit: function (mathField) {
