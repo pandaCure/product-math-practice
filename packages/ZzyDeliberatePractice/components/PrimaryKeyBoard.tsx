@@ -49,14 +49,12 @@ const PrimaryKeyBoard = () => {
       type: 'doNextMathExpression'
     }).then(data => {
       // 下一步题处理
-      console.log(data)
       setEdit(true)
       mq!.latex('')
       mq!.blur()
     })
   }
   const handleKeyBoardDelete = (e: any) => {
-    console.log('del')
     deleteFlag.current = true
     e.stopPropagation()
     setEdit(true)

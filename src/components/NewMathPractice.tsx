@@ -8,7 +8,10 @@ import A from '../../packages/ZzyDeliberatePractice'
 const NewMathPractice = () => {
   // TODO 进场图片加载动画需要吗
   return (
-    <A />
+    <MathExpressionContextProvider>
+      <ShowQuestion />
+      <PrimaryKeyBoard />
+    </MathExpressionContextProvider>
   )
 }
 export default NewMathPractice

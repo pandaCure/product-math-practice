@@ -41,7 +41,7 @@ const EnhanceMathQuillEdit = (props:IEnhanceMathQuillEditType) => {
   const ele = useRef<HTMLSpanElement>(null)
   const cacheMQ = useRef<MathFieldReturn | null>(null)
   useEffect(() => {
-    if (ele!.current) {
+    if (ele!.current && !cacheMQ!.current) {
       const mq = MathQuill.MathField(ele.current, {
         handlers: {
           edit: (mathField: MathFieldReturn) => {
