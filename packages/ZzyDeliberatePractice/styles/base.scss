@@ -33,7 +33,7 @@ $baseQuestionEM: 28;
 }
 @font-face {
   font-family: "DIN Bold";
-  src: local("DIN-BoldItalic"), url(../asserts/fonts/DINAlternateBold.ttf) format("truetype");
+  src: local("DINCond-Bold"), url(../asserts/fonts/DINCond-Bold.otf) format("opentype");
 }
 .#{$base}-icon {
   font-family: "Keyword" !important;
