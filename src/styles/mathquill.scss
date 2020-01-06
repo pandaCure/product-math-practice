@@ -13,7 +13,7 @@
 //   src: local("Symbola Regular"), local("Symbola"), url(fonts/Symbola.woff2) format("woff2"), url(fonts/Symbola.woff) format("woff"), url(fonts/Symbola.ttf) format("truetype"), url(fonts/Symbola.svg#Symbola) format("svg");
 // }
 @font-face {
-  font-family: "DIN Bold";
+  font-family: "DIN Bold" !important;
   src: local("DIN-BoldItalic"), url(fonts/DINAlternateBold.ttf) format("truetype");
 }
 .mq-editable-field {
@@ -53,7 +53,7 @@
 }
 .mq-editable-field .mq-latex-command-input {
   color: inherit;
-  font-family: "DIN Bold", "Noto Sans TC", sans-serif;
+  font-family: "DIN Bold", "Noto Sans TC", sans-serif !important;
   border: 1px solid gray;
   padding-right: 1px;
   margin-right: 1px;
@@ -117,7 +117,7 @@
 .mq-math-mode .mq-text-mode,
 .mq-math-mode .mq-nonSymbola {
   // font-family: "Times New Roman", Symbola, serif;
-  font-family: "DIN Bold", "Noto Sans TC", sans-serif;
+  font-family: "DIN Bold", "Noto Sans TC", sans-serif !important;
   line-height: 0.9;
 }
 .mq-math-mode * {
@@ -201,10 +201,10 @@
 }
 .mq-math-mode .mq-sans-serif {
   // font-family: sans-serif, Symbola, serif;
-  font-family: "DIN Bold", "Noto Sans TC", sans-serif;
+  font-family: "DIN Bold", "Noto Sans TC", sans-serif !important;
 }
 .mq-math-mode .mq-monospace {
-  font-family: "DIN Bold", "Noto Sans TC", sans-serif;
+  font-family: "DIN Bold", "Noto Sans TC", sans-serif !important;
   // font-family: monospace, Symbola, serif;
 }
 .mq-math-mode .mq-overline {
@@ -277,7 +277,7 @@
 }
 .mq-math-mode .mq-operator-name {
   // font-family: Symbola, "Times New Roman", serif;
-  font-family: "DIN Bold", "Noto Sans TC", sans-serif;
+  font-family: "DIN Bold", "Noto Sans TC", sans-serif !important;
   line-height: 0.9;
   font-style: normal;
 }
@@ -387,7 +387,7 @@
 .mq-math-mode .mq-editable-field {
   cursor: text;
   // font-family: Symbola, "Times New Roman", serif;
-  font-family: "DIN Bold", "Noto Sans TC", sans-serif;
+  font-family: "DIN Bold", "Noto Sans TC", sans-serif !important;
 }
 .mq-math-mode .mq-overarc {
   border-top: 1px solid black;

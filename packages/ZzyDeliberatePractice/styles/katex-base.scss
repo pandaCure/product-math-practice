@@ -1,6 +1,6 @@
 .__katex-normal-style {
   @font-face {
-    font-family: DIN;
+    font-family: DIN !important;
     src: local("DIN-BoldItalic"), url(../asserts/fonts/DIN-BoldItalic.otf) format('opentype');
   }
   .katex {
@@ -14,6 +14,7 @@
   }
   .katex * {
     -ms-high-contrast-adjust: none !important;
+    font: inherit !important;
   }
   .katex .katex-version::after {
     content: "0.11.1";

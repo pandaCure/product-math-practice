@@ -1,7 +1,6 @@
 $base: zzy-deliberate-practice;
 $baseEM: 32;
 $baseQuestionEM: 28;
-$baseIcon: zzy;
 @function computerEM($value) {
   @return ($value / $baseEM) * 1em;
 }
@@ -28,7 +27,7 @@ $baseIcon: zzy;
   url('../asserts/fonts/keyword.ttf?t=1577176201529') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
   url('../asserts/fonts/keyword.svg?t=1577176201529#iconfont') format('svg');
 }
-.#{$baseIcon}-icon {
+.#{$base}-icon {
   font-family: "Keyword" !important;
   font-size: 0.75em;
   font-style: normal;
