@@ -12,23 +12,25 @@ const PrimaryKeyBoard = () => {
   const [mathExpression, setMathExpression] = useState({ key: '' })
   const { dispatch, enhanceDispatch, state } = useContext(MathExpressionContext)
   const deleteFlag = useRef<boolean | null>(false)
+  const cacheCurrentDoIndex = useRef<number | null>(0)
   const handleClickKeyBoard = (e:any, key: any) => {
     e.stopPropagation()
     setMathExpression({ key })
   }
   const handleInputExpression = (latex, mathField) => {
-    console.log('handle write ......')
     if (!latex && !deleteFlag!.current) return false
     // TODO XSS攻击过滤
     setUserAnswer(latex)
     deleteFlag.current = false
   }
   useEffect(() => {
-    dispatch({
-      type: 'changeMathExpression',
-      answerMathExpression: userAnswer,
-      currentDoProblemId: state.addition.currentDoProblemId
-    })
+    if (cacheCurrentDoIndex!.current === state.addition.currentDoProblemId) {
+      dispatch({
+        type: 'changeMathExpression',
+        answerMathExpression: userAnswer,
+        currentDoProblemId: state.addition.currentDoProblemId
+      })
+    }
   }, [dispatch, state.addition.currentDoProblemId, userAnswer])
   const EditExpression = (e: any) => {
     e.stopPropagation()
@@ -40,7 +42,8 @@ const PrimaryKeyBoard = () => {
     setEdit(false)
   }
   const getMq = mq => setMq(mq)
-  const handleSubmitAnswer = () => {
+  const handleSubmitAnswer = (e:any) => {
+    e.stopPropagation()
     // TODO 提示必填 否则进入不了下一题
     if (!userAnswer) return false
     enhanceDispatch({
@@ -49,13 +52,13 @@ const PrimaryKeyBoard = () => {
       type: 'doNextMathExpression'
     }).then(data => {
       // 下一步题处理
-      console.log(data)
       setEdit(true)
       mq.latex('').blur()
+      setUserAnswer('')
+      cacheCurrentDoIndex!.current++
     })
   }
   const handleKeyBoardDelete = (e: any) => {
-    console.log('del')
     deleteFlag.current = true
     e.stopPropagation()
     setEdit(true)

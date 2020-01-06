@@ -14,6 +14,7 @@ const PrimaryKeyBoard = () => {
     MathExpressionContext
   )
   const deleteFlag = useRef<boolean | null>(false)
+  const cacheCurrentDoIndex = useRef<number | null>(0)
   const handleClickKeyBoard = (e: any, key: any) => {
     e.stopPropagation()
     setMathExpression({ key })
@@ -28,11 +29,13 @@ const PrimaryKeyBoard = () => {
     deleteFlag.current = false
   }
   useEffect(() => {
-    dispatch({
-      type: 'changeMathExpression',
-      answerMathExpression: userAnswer,
-      currentDoProblemId: state.addition.currentDoProblemId
-    })
+    if (cacheCurrentDoIndex!.current === state.addition.currentDoProblemId) {
+      dispatch({
+        type: 'changeMathExpression',
+        answerMathExpression: userAnswer,
+        currentDoProblemId: state.addition.currentDoProblemId
+      })
+    }
   }, [dispatch, state.addition.currentDoProblemId, userAnswer])
   const EditExpression = (e: any) => {
     e.stopPropagation()
@@ -44,7 +47,8 @@ const PrimaryKeyBoard = () => {
     setEdit(false)
   }
   const getMq = (mq: MathFieldReturn) => setMq(mq)
-  const handleSubmitAnswer = () => {
+  const handleSubmitAnswer = (e:any) => {
+    e.stopPropagation()
     // TODO 提示必填 否则进入不了下一题
     if (!userAnswer) return false
     enhanceDispatch({
@@ -56,6 +60,8 @@ const PrimaryKeyBoard = () => {
       setEdit(true)
       mq!.latex('')
       mq!.blur()
+      setUserAnswer('')
+      cacheCurrentDoIndex!.current++
     })
   }
   const handleKeyBoardDelete = (e: any) => {
