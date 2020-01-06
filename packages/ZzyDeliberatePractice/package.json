@@ -1,6 +1,6 @@
 {
   "name": "zzy-deliberate-practice",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "> TODO: description",
   "author": "pandaCure <zzyamor@163.com>",
   "homepage": "https://github.com/pandaCure/product-math-practice#readme",
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "enhance-mathquill-edit": "^1.0.4",
+    "enhance-mathquill-edit": "^1.0.5",
     "enhance-mathquill-no-edit": "^1.0.2-alpha.0",
     "mathquillloader": "^1.0.5-alpha.0",
     "react": "^16.12.0",
