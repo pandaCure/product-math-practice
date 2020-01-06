@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 var classnames_1 = __importDefault(require("classnames"));
-var submit_button_png_1 = __importDefault(require("../../asserts/submit-button.png"));
+var submit_button_png_1 = __importDefault(require("../asserts/submit-button.png"));
 var enhance_mathquill_edit_1 = __importDefault(require("enhance-mathquill-edit"));
-var mathExpressionContext_1 = require("../../mathExpressionContext");
+var mathExpressionContext_1 = require("../mathExpressionContext");
 var KEY = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0];
 var PrimaryKeyBoard = function () {
     var _a = react_1.useState(true), edit = _a[0], setEdit = _a[1];
