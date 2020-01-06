@@ -57,14 +57,12 @@ const PrimaryKeyBoard = () => {
             type: 'doNextMathExpression'
         }).then(data => {
             // 下一步题处理
-            console.log(data);
             setEdit(true);
             mq.latex('');
             mq.blur();
         });
     };
     const handleKeyBoardDelete = (e) => {
-        console.log('del');
         deleteFlag.current = true;
         e.stopPropagation();
         setEdit(true);
@@ -81,7 +79,7 @@ const PrimaryKeyBoard = () => {
                 return (react_1.default.createElement("li", { className: `${prefixCls}-keyboard-key`, key: i, onClick: () => handleClickKeyBoard(v) }, v));
             }),
             react_1.default.createElement("li", { className: `${prefixCls}-keyboard-key`, onClick: handleKeyBoardDelete },
-                react_1.default.createElement("div", { className: classnames_1.default('zzy-icon', 'zzy-icon-delete', `${prefixCls}-key-icon`) }))),
+                react_1.default.createElement("div", { className: classnames_1.default(`${prefixCls}-icon`, `${prefixCls}-icon-delete`, `${prefixCls}-key-icon`) }))),
         react_1.default.createElement("div", { className: `${prefixCls}-keyboard-button` },
             react_1.default.createElement("img", { src: submit_button_png_1.default, alt: "submit button", className: `${prefixCls}-keyboard-button-icon`, onClick: handleSubmitAnswer }))));
 };

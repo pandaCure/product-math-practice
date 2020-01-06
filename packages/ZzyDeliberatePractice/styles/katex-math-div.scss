@@ -1,4 +1,4 @@
-..#{$base}-question {
+.#{$base}-question {
   display: flex;
   align-items: center;
   font-size: 1 / 1.21 * 1em;
@@ -15,6 +15,7 @@
     padding: 0 computerEM(8);
     min-width: computerEM(54);
     min-height: computerEM(32);
+    transform: skew(170deg);
   }
   .#{$base}-change-border-color {
     border-color: rgba(30, 180, 255, 1);

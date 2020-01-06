@@ -96,8 +96,8 @@ const PrimaryKeyBoard = () => {
         >
           <div
             className={classnames(
-              'zzy-icon',
-              'zzy-icon-delete',
+              `${prefixCls}-icon`,
+              `${prefixCls}-icon-delete`,
               `${prefixCls}-key-icon`
             )}
           />

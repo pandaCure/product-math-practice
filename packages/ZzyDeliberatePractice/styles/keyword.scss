@@ -3,7 +3,7 @@
   height: computerKeywordEM(614);
   font-size: inherit;
   @include bgCompose;
-  background-image: url('../../asserts/keyboard-bg.png');
+  background-image: url('../asserts/keyboard-bg.png');
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -68,10 +68,10 @@
       }
     }
   }
-  .#{$base}-button {
+  .#{$base}-keyboard-button {
     margin-top: computerKeywordEM(-4);
     padding-bottom: computerKeywordEM(28);
-    .#{$base}-button-icon {
+    .#{$base}-keyboard-button-icon {
       width: computerKeywordEM(278);
       height: computerKeywordEM(59);
       cursor: pointer;
