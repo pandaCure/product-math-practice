@@ -125,6 +125,6 @@ const [MathExpressionContext, MathExpressionContextProvider] = createCtx(
 const stateMap = new Map<string, IInitState>()
 stateMap.set('subState', subState)
 stateMap.set('addState', addState)
-stateMap.set('addState', addState)
+stateMap.set('mulState', mulState)
 stateMap.set('divState', divState)
 export { MathExpressionContext, MathExpressionContextProvider, stateMap }
