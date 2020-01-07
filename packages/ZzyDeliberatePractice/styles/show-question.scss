@@ -24,7 +24,7 @@
     justify-content: center;
     .#{$base}-question-tag {
       position: absolute;
-      background-image: url(../../asserts/practice-flag.png);
+      background-image: url(../asserts/practice-flag.png);
       @include bgCompose;
       left: computerQuestionEM(145);
       top: computerQuestionEM(12);
