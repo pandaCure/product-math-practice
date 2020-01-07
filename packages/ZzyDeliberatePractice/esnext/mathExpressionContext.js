@@ -6,56 +6,60 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
-const expression_1 = __importDefault(require("./expression"));
+const expression_1 = require("./expression");
 const middleware_1 = require("./middleware");
-const initMathExpression = {
-    addition: {
-        addMathExpression: Array(10)
+const initMathExpression = key => {
+    const fun = expression_1.computerMathMap.get(key);
+    if (!fun)
+        return {
+            mathExpression: [],
+            nextAddProblemId: 0,
+            currentDoProblemId: 0,
+            mathExpressionType: key
+        };
+    return {
+        mathExpression: Array(10)
             .fill(1)
             .map((v, i) => {
             return {
-                ...expression_1.default(),
+                ...fun(),
                 problemId: i,
                 answerMathExpression: ''
             };
         }),
         nextAddProblemId: 10,
-        currentDoProblemId: 0
-    }
+        currentDoProblemId: 0,
+        mathExpressionType: key
+    };
 };
+const addState = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpression);
+const subState = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpression);
+const mulState = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpression);
+const divState = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpression);
 const mathExpressionReducer = (state, action) => {
-    const { addMathExpression } = state.addition;
+    const { mathExpression } = state;
     switch (action.type) {
         case 'changeMathExpression':
             return {
                 ...state,
-                addition: {
-                    ...state.addition,
-                    addMathExpression: addMathExpression.map(v => {
-                        if (v.problemId !== action.currentDoProblemId)
-                            return v;
-                        return {
-                            ...v,
-                            answerMathExpression: action.answerMathExpression
-                        };
-                    })
-                }
+                mathExpression: mathExpression.map(v => {
+                    if (v.problemId !== action.currentDoProblemId)
+                        return v;
+                    return {
+                        ...v,
+                        answerMathExpression: action.answerMathExpression
+                    };
+                })
             };
         case 'doNextMathExpression':
-            addMathExpression.push(action.nextMathExpression);
+            mathExpression.push(action.nextMathExpression);
             return {
                 ...state,
-                addition: {
-                    ...state.addition,
-                    addMathExpression: [...addMathExpression],
-                    nextAddProblemId: state.addition.nextAddProblemId + 1,
-                    currentDoProblemId: state.addition.currentDoProblemId + 1
-                }
+                mathExpression: [...mathExpression],
+                nextAddProblemId: state.nextAddProblemId + 1,
+                currentDoProblemId: state.currentDoProblemId + 1
             };
         default:
             return state;
@@ -72,13 +76,19 @@ function createCtx(reducer, initialState) {
         prefixCls
     });
     const Provider = (props) => {
-        const [state, dispatch] = react_1.useReducer(reducer, initialState);
+        const [state, dispatch] = react_1.useReducer(reducer, props.initialPropsState);
         const enhanceDispatch = middleware_1.applyMiddleware(state, dispatch);
-        return react_1.default.createElement(ctx.Provider, Object.assign({ value: { state, dispatch, enhanceDispatch, prefixCls } }, props));
+        return (react_1.default.createElement(ctx.Provider, Object.assign({ value: { state, dispatch, enhanceDispatch, prefixCls } }, props)));
     };
     return [ctx, Provider];
 }
 exports.createCtx = createCtx;
-const [MathExpressionContext, MathExpressionContextProvider] = createCtx(mathExpressionReducer, initMathExpression);
+const [MathExpressionContext, MathExpressionContextProvider] = createCtx(mathExpressionReducer, subState);
 exports.MathExpressionContext = MathExpressionContext;
 exports.MathExpressionContextProvider = MathExpressionContextProvider;
+const stateMap = new Map();
+exports.stateMap = stateMap;
+stateMap.set('subState', subState);
+stateMap.set('addState', addState);
+stateMap.set('addState', addState);
+stateMap.set('divState', divState);

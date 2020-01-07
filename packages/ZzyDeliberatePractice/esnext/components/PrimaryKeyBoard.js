@@ -36,14 +36,14 @@ const PrimaryKeyBoard = () => {
         deleteFlag.current = false;
     };
     react_1.useEffect(() => {
-        if (cacheCurrentDoIndex.current === state.addition.currentDoProblemId) {
+        if (cacheCurrentDoIndex.current === state.currentDoProblemId) {
             dispatch({
                 type: 'changeMathExpression',
                 answerMathExpression: userAnswer,
-                currentDoProblemId: state.addition.currentDoProblemId
+                currentDoProblemId: state.currentDoProblemId
             });
         }
-    }, [dispatch, state.addition.currentDoProblemId, userAnswer]);
+    }, [dispatch, state.currentDoProblemId, userAnswer]);
     const EditExpression = (e) => {
         e.stopPropagation();
         setEdit(true);
@@ -60,7 +60,7 @@ const PrimaryKeyBoard = () => {
         if (!userAnswer)
             return false;
         enhanceDispatch({
-            currentDoProblemId: state.addition.currentDoProblemId,
+            currentDoProblemId: state.currentDoProblemId,
             userAnswer,
             type: 'doNextMathExpression'
         }).then(data => {

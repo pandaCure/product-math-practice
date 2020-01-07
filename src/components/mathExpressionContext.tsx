@@ -1,39 +1,45 @@
 import React, { createContext, useReducer } from 'react'
-import getAddNum from '@/hooks/hooks'
+import { computerMathMap, ComputerMathMapEnum } from '@/hooks/hooks'
 import { applyMiddleware, IAction } from './middleware'
-export interface IMathExpression {
+// TODO code splite
+interface IMathExpression {
   problemId: number
   answerMathExpression: string
-  addend1: number
-  addend2: number
-  result: number
-  expression: string
-  resultExpression: string
 }
+type IMathExpressionType = IMathExpression & Readonly<IMathExpressionResult>
 export interface IAddition<T> {
-  addMathExpression: T[]
+  mathExpression: T[]
   nextAddProblemId: number
   currentDoProblemId: number
 }
-export interface IInitState {
-  addition: IAddition<IMathExpression>
-}
-const initMathExpression: IInitState = {
-  addition: {
-    addMathExpression: Array(10)
+export type IInitState = IAddition<IMathExpressionType>
+const initMathExpression: (key: string) => IInitState = key => {
+  return {
+    mathExpression: Array(10)
       .fill(1)
-      .map((v, i: number) => {
+      .map((v: number, i: number) => {
         return {
-          ...getAddNum(),
+          ...computerMathMap.get(key)(),
           problemId: i,
           answerMathExpression: ''
         }
       }),
     nextAddProblemId: 10,
-    currentDoProblemId: 0
+    currentDoProblemId: 0,
+    mathExpressionType: key
   }
 }
-type AppState = typeof initMathExpression
+const addState = initMathExpression(ComputerMathMapEnum.getAddendMathExpression)
+const subState = initMathExpression(
+  ComputerMathMapEnum.getSubtractionMathExpression
+)
+const mulState = initMathExpression(
+  ComputerMathMapEnum.getMultiplicationMathExpression
+)
+const divState = initMathExpression(
+  ComputerMathMapEnum.getDivisionMathExpression
+)
+type AppState = IInitState
 type Action =
   | {
       type: 'changeMathExpression'
@@ -42,32 +48,26 @@ type Action =
     }
   | { type: 'doNextMathExpression'; nextMathExpression: IMathExpression }
 const mathExpressionReducer = (state: AppState, action: Action): AppState => {
-  const { addMathExpression } = state.addition
+  const { mathExpression } = state
   switch (action.type) {
     case 'changeMathExpression':
       return {
         ...state,
-        addition: {
-          ...state.addition,
-          addMathExpression: addMathExpression.map(v => {
-            if (v.problemId !== action.currentDoProblemId) return v
-            return {
-              ...v,
-              answerMathExpression: action.answerMathExpression
-            }
-          })
-        }
+        mathExpression: mathExpression.map(v => {
+          if (v.problemId !== action.currentDoProblemId) return v
+          return {
+            ...v,
+            answerMathExpression: action.answerMathExpression
+          }
+        })
       }
     case 'doNextMathExpression':
-      addMathExpression.push(action.nextMathExpression)
+      mathExpression.push(action.nextMathExpression)
       return {
         ...state,
-        addition: {
-          ...state.addition,
-          addMathExpression: [...addMathExpression],
-          nextAddProblemId: state.addition.nextAddProblemId + 1,
-          currentDoProblemId: state.addition.currentDoProblemId + 1
-        }
+        mathExpression: [...mathExpression],
+        nextAddProblemId: state.nextAddProblemId + 1,
+        currentDoProblemId: state.currentDoProblemId + 1
       }
     default:
       return state
@@ -78,37 +78,45 @@ export function createCtx<StateType, ActionType>(
   initialState: StateType
 ) {
   const defaultDispatch: React.Dispatch<ActionType> = () => initialState
-  const enhanceDispatch = (action:IAction) => Promise.resolve(undefined)
+  const enhanceDispatch = (action: IAction) => Promise.resolve(undefined)
+  const prefixCls = 'zzy-deliberate-practice'
   const ctx = createContext({
     state: initialState,
     dispatch: defaultDispatch,
-    enhanceDispatch
+    enhanceDispatch,
+    prefixCls
   })
-  const Provider = (props: React.PropsWithChildren<{}>) => {
-    const [state, dispatch] = useReducer<React.Reducer<StateType, ActionType>>(reducer, initialState)
-    const enhanceDispatch = applyMiddleware<StateType, React.Dispatch<ActionType>>(state, dispatch)
-    return <ctx.Provider value={{ state, dispatch, enhanceDispatch }} {...props} />
+  const Provider = (
+    props: React.PropsWithChildren<{ initialPropsState: StateType }>
+  ) => {
+    const [state, dispatch] = useReducer<React.Reducer<StateType, ActionType>>(
+      reducer,
+      props.initialPropsState
+    )
+    const enhanceDispatch = applyMiddleware<
+      StateType,
+      React.Dispatch<ActionType>
+    >(state, dispatch)
+    return (
+      <ctx.Provider
+        value={{ state, dispatch, enhanceDispatch, prefixCls }}
+        {...props}
+      />
+    )
   }
   return [ctx, Provider] as const
 }
-const [MathExpressionContext, MathExpressionContextProvider] = createCtx(mathExpressionReducer, initMathExpression)
-// export const MathExpressionContext = ctx
-// const MathExpressionContext = createContext({})
-
-// const MathExpressionContextProvider = ({ children }) => {
-//   const [state, dispatch] = useReducer(
-//     mathExpressionReducer,
-//     initMathExpression
-//   )
-//   console.log(`*****************`)
-//   console.log(state)
-//   const enhanceDispatch = applyMiddleware(state, dispatch)
-//   return (
-//     <MathExpressionContext.Provider
-//       value={{ state, dispatch, enhanceDispatch }}
-//     >
-//       {children}
-//     </MathExpressionContext.Provider>
-//   )
-// }
-export { MathExpressionContext, MathExpressionContextProvider }
+const [MathExpressionContext, MathExpressionContextProvider] = createCtx(
+  mathExpressionReducer,
+  subState
+)
+const stateMap = new Map<string, IInitState>()
+stateMap.set('subState', subState)
+stateMap.set('addState', addState)
+stateMap.set('addState', addState)
+stateMap.set('divState', divState)
+export {
+  MathExpressionContext,
+  MathExpressionContextProvider,
+  stateMap
+}

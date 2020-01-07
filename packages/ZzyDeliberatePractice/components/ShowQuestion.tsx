@@ -1,10 +1,10 @@
 import React, { useContext, useRef, useEffect } from 'react'
 import KatexMathDiv from './KatexMathDiv'
-import { MathExpressionContext, IMathExpression } from '../mathExpressionContext'
+import { MathExpressionContext, IMathExpressionType } from '../mathExpressionContext'
 import classnames from 'classnames'
 const ShowQuestion = () => {
   const { state, prefixCls } = useContext(MathExpressionContext)
-  const { addMathExpression, currentDoProblemId } = state.addition
+  const { mathExpression, currentDoProblemId } = state
   const liDOM = useRef<HTMLLIElement | null>(null)
   const uiDOM = useRef<HTMLUListElement | null>(null)
   useEffect(() => {
@@ -17,8 +17,9 @@ const ShowQuestion = () => {
   return (
     <div className={`${prefixCls}-show-question`}>
       <div className={`${prefixCls}-question-block`}>
+      <div className={`${prefixCls}-question-tag`} />
         <ul className={`${prefixCls}-question-view`} ref={uiDOM}>
-          {addMathExpression.map((v:IMathExpression, i:number) => {
+          {mathExpression.map((v:IMathExpressionType, i:number) => {
             return (
               <li
                 key={i}
@@ -40,6 +41,7 @@ const ShowQuestion = () => {
           })}
         </ul>
       </div>
+      <div className={`${prefixCls}-question-bottom`} />
     </div>
   )
 }

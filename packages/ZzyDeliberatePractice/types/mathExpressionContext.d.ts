@@ -1,44 +1,41 @@
 import React from 'react';
+import { IMathExpressionResult } from './expression';
 import { IAction } from './middleware';
-export interface IMathExpression {
+interface IMathExpression {
     problemId: number;
     answerMathExpression: string;
-    addend1: number;
-    addend2: number;
-    result: number;
-    expression: string;
-    resultExpression: string;
 }
+export declare type IMathExpressionType = IMathExpression & Readonly<IMathExpressionResult>;
 export interface IAddition<T> {
-    addMathExpression: T[];
+    mathExpression: T[];
     nextAddProblemId: number;
     currentDoProblemId: number;
+    mathExpressionType: string;
 }
-export interface IInitState {
-    addition: IAddition<IMathExpression>;
-}
+export declare type IInitState = IAddition<IMathExpressionType>;
 declare type Action = {
     type: 'changeMathExpression';
     currentDoProblemId: number;
     answerMathExpression: string;
 } | {
     type: 'doNextMathExpression';
-    nextMathExpression: IMathExpression;
+    nextMathExpression: IMathExpressionType;
 };
 export declare function createCtx<StateType, ActionType>(reducer: React.Reducer<StateType, ActionType>, initialState: StateType): readonly [React.Context<{
     state: StateType;
     dispatch: React.Dispatch<ActionType>;
     enhanceDispatch: (action: IAction) => Promise<undefined>;
     prefixCls: string;
-}>, (props: {
-    children?: React.ReactNode;
-}) => JSX.Element];
+}>, (props: React.PropsWithChildren<{
+    [props: string]: any;
+}>) => JSX.Element];
 declare const MathExpressionContext: React.Context<{
-    state: IInitState;
+    state: IAddition<IMathExpressionType>;
     dispatch: React.Dispatch<Action>;
     enhanceDispatch: (action: IAction) => Promise<undefined>;
     prefixCls: string;
-}>, MathExpressionContextProvider: (props: {
-    children?: React.ReactNode;
-}) => JSX.Element;
-export { MathExpressionContext, MathExpressionContextProvider };
+}>, MathExpressionContextProvider: (props: React.PropsWithChildren<{
+    [props: string]: any;
+}>) => JSX.Element;
+declare const stateMap: Map<string, IAddition<IMathExpressionType>>;
+export { MathExpressionContext, MathExpressionContextProvider, stateMap };

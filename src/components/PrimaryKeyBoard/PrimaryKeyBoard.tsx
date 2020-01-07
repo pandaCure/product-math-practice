@@ -24,14 +24,14 @@ const PrimaryKeyBoard = () => {
     deleteFlag.current = false
   }
   useEffect(() => {
-    if (cacheCurrentDoIndex!.current === state.addition.currentDoProblemId) {
+    if (cacheCurrentDoIndex!.current === state.currentDoProblemId) {
       dispatch({
         type: 'changeMathExpression',
         answerMathExpression: userAnswer,
-        currentDoProblemId: state.addition.currentDoProblemId
+        currentDoProblemId: state.currentDoProblemId
       })
     }
-  }, [dispatch, state.addition.currentDoProblemId, userAnswer])
+  }, [dispatch, state.currentDoProblemId, userAnswer])
   const EditExpression = (e: any) => {
     e.stopPropagation()
     setEdit(true)
@@ -47,7 +47,7 @@ const PrimaryKeyBoard = () => {
     // TODO 提示必填 否则进入不了下一题
     if (!userAnswer) return false
     enhanceDispatch({
-      currentDoProblemId: state.addition.currentDoProblemId,
+      currentDoProblemId: state.currentDoProblemId,
       userAnswer,
       type: 'doNextMathExpression'
     }).then(data => {

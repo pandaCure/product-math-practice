@@ -1,11 +1,15 @@
-interface IAddendResult {
-    addend1: number;
-    addend2: number;
+export interface IMathExpressionResult {
+    firstNumber: number;
+    secondNumber: number;
     result: number;
     expression: string;
     resultExpression: string;
 }
-declare type AddendResult = IAddendResult;
-declare type IGetAddNum = () => AddendResult;
-declare const getAddNum: IGetAddNum;
-export default getAddNum;
+declare const computerMathMap: Map<string, () => IMathExpressionResult>;
+declare enum ComputerMathMapEnum {
+    getAddendMathExpression = "getAddendMathExpression",
+    getSubtractionMathExpression = "getSubtractionMathExpression",
+    getMultiplicationMathExpression = "getMultiplicationMathExpression",
+    getDivisionMathExpression = "getDivisionMathExpression"
+}
+export { computerMathMap, ComputerMathMapEnum };

@@ -36,14 +36,14 @@ var PrimaryKeyBoard = function () {
         deleteFlag.current = false;
     };
     react_1.useEffect(function () {
-        if (cacheCurrentDoIndex.current === state.addition.currentDoProblemId) {
+        if (cacheCurrentDoIndex.current === state.currentDoProblemId) {
             dispatch({
                 type: 'changeMathExpression',
                 answerMathExpression: userAnswer,
-                currentDoProblemId: state.addition.currentDoProblemId
+                currentDoProblemId: state.currentDoProblemId
             });
         }
-    }, [dispatch, state.addition.currentDoProblemId, userAnswer]);
+    }, [dispatch, state.currentDoProblemId, userAnswer]);
     var EditExpression = function (e) {
         e.stopPropagation();
         setEdit(true);
@@ -60,7 +60,7 @@ var PrimaryKeyBoard = function () {
         if (!userAnswer)
             return false;
         enhanceDispatch({
-            currentDoProblemId: state.addition.currentDoProblemId,
+            currentDoProblemId: state.currentDoProblemId,
             userAnswer: userAnswer,
             type: 'doNextMathExpression'
         }).then(function (data) {

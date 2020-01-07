@@ -1,0 +1,20 @@
+{
+  "name": "test-packages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "zzy-deliberate-practice": "^1.0.9"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.5"
+  }
+}

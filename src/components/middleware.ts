@@ -1,14 +1,14 @@
-import getAddNum from '@/hooks/hooks'
-import { IMathExpression } from './mathExpressionContext'
+import {computerMathMap} from '@/hooks/hooks'
+import { IMathExpressionType } from './mathExpressionContext'
 // TODO 应该使用 const => babel transform ts have problem
-enum additionEnum {
-  itemKey = 'addition'
+enum MathRecordKeyEnum {
+  itemKey = 'record-user-do-problem'
 }
 export interface ICacheData<T> {
   data: T[]
   correctArr: number[]
 }
-type ICacheDataType = ICacheData<IMathExpression  & { isCorrect: boolean }>
+type ICacheDataType = ICacheData<IMathExpressionType  & { isCorrect: boolean }>
 const getCacheLocationProblem = (name: string) => {
   const cacheProblem = window.localStorage.getItem(name)
   return !cacheProblem ? false : JSON.parse(cacheProblem)
@@ -28,7 +28,7 @@ export interface IAction {
 export const applyMiddleware: <T, V>(
   state: T,
   dispatch: V
-) => (action: IAction) => Promise<undefined> = (state: any, dispatch: any) => (
+) => (action: IAction) => Promise<undefined> = (state: T, dispatch: V) => (
   action: any
 ) => {
   return new Promise((resolve, reject) => {
@@ -36,32 +36,32 @@ export const applyMiddleware: <T, V>(
       // 从action中获取用户answer,当前题目索引
       const { userAnswer, currentDoProblemId } = action
       // 获取state里面数学表达式集合
-      const { addition } = state
+      const { mathExpression } = state
       // 获取答案是否正确
-      const mathExpression = addition.addMathExpression.find(
-        (v:IMathExpression) => v.problemId === currentDoProblemId
+      const mathAnswerExpression = mathExpression.find(
+        (v:IMathExpressionType) => v.problemId === currentDoProblemId
       )
-      const isCorrect = mathExpression.resultExpression === userAnswer
+      const isCorrect = mathAnswerExpression.resultExpression === userAnswer
       // 存用户题目
-      if (getCacheLocationProblem(additionEnum.itemKey)) {
-        const cacheData: ICacheDataType = getCacheLocationProblem(additionEnum.itemKey)
-        cacheData.data = [...cacheData.data, { ...mathExpression, isCorrect }]
+      if (getCacheLocationProblem(MathRecordKeyEnum.itemKey)) {
+        const cacheData: ICacheDataType = getCacheLocationProblem(MathRecordKeyEnum.itemKey)
+        cacheData.data = [...cacheData.data, { ...mathAnswerExpression, isCorrect }]
         cacheData.correctArr.push(Number(isCorrect))
-        setCacheLocationProblem(additionEnum.itemKey, cacheData)
+        setCacheLocationProblem(MathRecordKeyEnum.itemKey, cacheData)
       } else {
         const cacheData: ICacheDataType = {
-          data: [{ ...mathExpression, isCorrect }],
+          data: [{ ...mathAnswerExpression, isCorrect }],
           correctArr: [Number(isCorrect)]
         }
-        setCacheLocationProblem(additionEnum.itemKey, cacheData)
+        setCacheLocationProblem(MathRecordKeyEnum.itemKey, cacheData)
       }
       // 获取新题
-      const getNewProblem = getAddNum()
+      const getNewProblem = computerMathMap.get(state.mathExpressionType)()
       const enhanceAction = {
         ...action,
         nextMathExpression: {
           ...getNewProblem,
-          problemId: state!.addition!.nextAddProblemId,
+          problemId: state!.nextAddProblemId,
           answerMathExpression: ''
         }
       }

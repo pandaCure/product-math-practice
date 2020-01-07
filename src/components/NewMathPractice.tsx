@@ -1,14 +1,16 @@
 import React from 'react'
 import PrimaryKeyBoard from '@/components/PrimaryKeyBoard/PrimaryKeyBoard'
 import './style.scss'
-import { MathExpressionContextProvider } from './mathExpressionContext'
+import {
+  MathExpressionContextProvider,
+  stateMap
+} from './mathExpressionContext'
 import ShowQuestion from '@/components/ShowQuestion/ShowQuestion'
 const baseCss = 'zzy-deliberate-practice'
-import A from '../../packages/ZzyDeliberatePractice'
-const NewMathPractice = () => {
+const NewMathPractice = ({ types = 'addState' }) => {
   // TODO 进场图片加载动画需要吗
   return (
-    <MathExpressionContextProvider>
+    <MathExpressionContextProvider initialPropsState={stateMap.get(types)}>
       <div className="zzy-container">
         <ShowQuestion />
         <PrimaryKeyBoard />

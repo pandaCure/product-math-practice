@@ -5,7 +5,7 @@ import { MathExpressionContext } from '@/components/mathExpressionContext'
 import classnames from 'classnames'
 const ShowQuestion = () => {
   const { state } = useContext(MathExpressionContext)
-  const { addMathExpression, currentDoProblemId } = state.addition
+  const { mathExpression, currentDoProblemId } = state
   const liDOM = useRef<HTMLLIElement|null>(null)
   const uiDOM = useRef<HTMLUListElement|null>(null)
   useEffect(() => {
@@ -17,8 +17,9 @@ const ShowQuestion = () => {
   return (
     <div className="zzy-show-question">
       <div className="question-block">
+        <div className="question-tag" />
         <ul className="question-view" ref={uiDOM}>
-          {addMathExpression.map((v, i) => {
+          {mathExpression.map((v, i) => {
             return (
               <li
                 key={i}
@@ -38,6 +39,7 @@ const ShowQuestion = () => {
           })}
         </ul>
       </div>
+      <div className="question-bottom" />
     </div>
   )
 }

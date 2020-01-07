@@ -17,16 +17,13 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var expression_1 = __importDefault(require("./expression"));
+var expression_1 = require("./expression");
 // TODO 应该使用 const => babel transform ts have problem
-var additionEnum;
-(function (additionEnum) {
-    additionEnum["itemKey"] = "addition";
-})(additionEnum || (additionEnum = {}));
+var MathRecordKeyEnum;
+(function (MathRecordKeyEnum) {
+    MathRecordKeyEnum["itemKey"] = "record-user-do-problem";
+})(MathRecordKeyEnum || (MathRecordKeyEnum = {}));
 var getCacheLocationProblem = function (name) {
     var cacheProblem = window.localStorage.getItem(name);
     return !cacheProblem ? false : JSON.parse(cacheProblem);
@@ -41,27 +38,29 @@ exports.applyMiddleware = function (state, dispatch) { return function (action) 
             // 从action中获取用户answer,当前题目索引
             var userAnswer = action.userAnswer, currentDoProblemId_1 = action.currentDoProblemId;
             // 获取state里面数学表达式集合
-            var addition = state.addition;
+            var mathExpression = state.mathExpression;
             // 获取答案是否正确
-            var mathExpression = addition.addMathExpression.find(function (v) { return v.problemId === currentDoProblemId_1; });
-            var isCorrect = mathExpression.resultExpression === userAnswer;
+            var mathAnswerExpression = mathExpression.find(function (v) { return v.problemId === currentDoProblemId_1; });
+            var isCorrect = mathAnswerExpression.resultExpression === userAnswer;
             // 存用户题目
-            if (getCacheLocationProblem(additionEnum.itemKey)) {
-                var cacheData = getCacheLocationProblem(additionEnum.itemKey);
-                cacheData.data = __spreadArrays(cacheData.data, [__assign(__assign({}, mathExpression), { isCorrect: isCorrect })]);
+            if (getCacheLocationProblem(MathRecordKeyEnum.itemKey)) {
+                var cacheData = getCacheLocationProblem(MathRecordKeyEnum.itemKey);
+                cacheData.data = __spreadArrays(cacheData.data, [
+                    __assign(__assign({}, mathAnswerExpression), { isCorrect: isCorrect })
+                ]);
                 cacheData.correctArr.push(Number(isCorrect));
-                setCacheLocationProblem(additionEnum.itemKey, cacheData);
+                setCacheLocationProblem(MathRecordKeyEnum.itemKey, cacheData);
             }
             else {
                 var cacheData = {
-                    data: [__assign(__assign({}, mathExpression), { isCorrect: isCorrect })],
+                    data: [__assign(__assign({}, mathAnswerExpression), { isCorrect: isCorrect })],
                     correctArr: [Number(isCorrect)]
                 };
-                setCacheLocationProblem(additionEnum.itemKey, cacheData);
+                setCacheLocationProblem(MathRecordKeyEnum.itemKey, cacheData);
             }
             // 获取新题
-            var getNewProblem = expression_1.default();
-            var enhanceAction = __assign(__assign({}, action), { nextMathExpression: __assign(__assign({}, getNewProblem), { problemId: state.addition.nextAddProblemId, answerMathExpression: '' }) });
+            var getNewProblem = expression_1.computerMathMap.get(state.mathExpressionType)();
+            var enhanceAction = __assign(__assign({}, action), { nextMathExpression: __assign(__assign({}, getNewProblem), { problemId: state.nextAddProblemId, answerMathExpression: '' }) });
             // TODO 返回值？
             resolve(dispatch(enhanceAction));
             console.log(state);

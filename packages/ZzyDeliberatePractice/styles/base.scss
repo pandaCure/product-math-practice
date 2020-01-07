@@ -49,7 +49,7 @@ $baseQuestionEM: 28;
 }
 @mixin bgCompose {
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100% 100%;
 }
 span {
   font: inherit;

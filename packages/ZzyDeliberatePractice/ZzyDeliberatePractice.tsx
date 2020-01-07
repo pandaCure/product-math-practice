@@ -1,12 +1,20 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import PrimaryKeyBoard from './components/PrimaryKeyBoard'
-import {MathExpressionContextProvider, MathExpressionContext} from './mathExpressionContext'
+import {
+  MathExpressionContextProvider,
+  MathExpressionContext,
+  stateMap
+} from './mathExpressionContext'
 import ShowQuestion from './components/ShowQuestion'
-const ZzyDeliberatePractice = () => {
+type propsType = 'subState' | 'addState' | 'mulState' | 'divState'
+interface IZP {
+  types: propsType
+}
+const ZzyDeliberatePractice: React.FC<IZP> = ({ types }) => {
   // TODO 进场图片加载动画需要吗
-  const {prefixCls} = useContext(MathExpressionContext)
+  const { prefixCls } = useContext(MathExpressionContext)
   return (
-    <MathExpressionContextProvider>
+    <MathExpressionContextProvider initialPropsState={stateMap.get(types)}>
       <div className={`${prefixCls}-container`}>
         <ShowQuestion />
         <PrimaryKeyBoard />
