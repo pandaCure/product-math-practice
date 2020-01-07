@@ -38,7 +38,7 @@ const getSubtractionMathExpression: () => IMathExpressionResult = () => {
     secondNumber: sub2,
     result,
     resultExpression: `${result}`,
-    expression: `${sub1}-${sub2}`
+    expression: `${sub1}-${sub2}=`
   }
 }
 const getMultiplicationMathExpression: () => IMathExpressionResult = () => {
@@ -50,7 +50,7 @@ const getMultiplicationMathExpression: () => IMathExpressionResult = () => {
     secondNumber: num2Ones,
     result,
     resultExpression: `${result}`,
-    expression: `${num1Ones}\\times${num2Ones}`
+    expression: `${num1Ones}\\times${num2Ones}=`
   }
 }
 const getDivisionMathExpression: () => IMathExpressionResult = () => {
@@ -62,7 +62,7 @@ const getDivisionMathExpression: () => IMathExpressionResult = () => {
     secondNumber: num2Ones,
     result,
     resultExpression: `${result}`,
-    expression: `${num1Ones}\\div${num2Ones}`
+    expression: `${num1Ones}\\div${num2Ones}=`
   }
 }
 const computerMathMap = new Map<string, () => IMathExpressionResult>()

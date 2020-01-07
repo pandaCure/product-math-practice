@@ -6,6 +6,7 @@
   box-sizing: border-box;
   padding: computerQuestionEM(52) computerQuestionEM(15) computerQuestionEM(18);
   margin-right: computerQuestionEM(30);
+  position: relative;
   .#{$base}-question-bottom {
     background-image: url(../asserts/practice-bottom.png);
     @include bgCompose;
