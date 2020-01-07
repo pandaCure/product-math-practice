@@ -17,7 +17,8 @@ const defaultProps = {
     JSXAttribute(nodePath: NodePath<t.JSXAttribute>) {
       const attrNode = nodePath.node.value;
       if (t.isStringLiteral(attrNode) && attrNode.value === "mq-editable-field mq-math-mode") {
-        const node = nodePath.getAllNextSiblings()
+        let node = nodePath.getAllNextSiblings()
+        if (!node) node = nodePath.getAllPrevSiblings()
         node.forEach(v => v.replaceWith(t.jsxAttribute(t.jsxIdentifier('style'), t.stringLiteral("font-family: 'DINCond Bold' !important; opacity: 1"))))
       }
     }
