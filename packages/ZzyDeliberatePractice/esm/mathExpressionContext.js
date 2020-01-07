@@ -93,5 +93,5 @@ var stateMap = new Map();
 exports.stateMap = stateMap;
 stateMap.set('subState', subState);
 stateMap.set('addState', addState);
-stateMap.set('addState', addState);
+stateMap.set('mulState', mulState);
 stateMap.set('divState', divState);

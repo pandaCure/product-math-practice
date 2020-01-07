@@ -32,7 +32,7 @@ var getSubtractionMathExpression = function () {
         secondNumber: sub2,
         result: result,
         resultExpression: "" + result,
-        expression: sub1 + "-" + sub2
+        expression: sub1 + "-" + sub2 + "="
     };
 };
 var getMultiplicationMathExpression = function () {
@@ -44,7 +44,7 @@ var getMultiplicationMathExpression = function () {
         secondNumber: num2Ones,
         result: result,
         resultExpression: "" + result,
-        expression: num1Ones + "\\times" + num2Ones
+        expression: num1Ones + "\\times" + num2Ones + "="
     };
 };
 var getDivisionMathExpression = function () {
@@ -56,7 +56,7 @@ var getDivisionMathExpression = function () {
         secondNumber: num2Ones,
         result: result,
         resultExpression: "" + result,
-        expression: num1Ones + "\\div" + num2Ones
+        expression: num1Ones + "\\div" + num2Ones + "="
     };
 };
 var computerMathMap = new Map();
