@@ -16,8 +16,11 @@ const submit_button_png_1 = __importDefault(require("../asserts/submit-button.pn
 const enhance_mathquill_edit_1 = __importDefault(require("enhance-mathquill-edit"));
 const mathExpressionContext_1 = require("../mathExpressionContext");
 const KEY = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0];
+const operationStrMatch = /[^\d]+/;
+const operationNumMatch = /[\d|\.]+/;
 const PrimaryKeyBoard = () => {
     const [edit, setEdit] = react_1.useState(true);
+    const [limitInput, setLimitInput] = react_1.useState(false);
     const [userAnswer, setUserAnswer] = react_1.useState('');
     const [mq, setMq] = react_1.useState(null);
     const [mathExpression, setMathExpression] = react_1.useState({ key: '' });
@@ -26,12 +29,24 @@ const PrimaryKeyBoard = () => {
     const cacheCurrentDoIndex = react_1.useRef(0);
     const handleClickKeyBoard = (e, key) => {
         e.stopPropagation();
-        setMathExpression({ key });
+        setEdit(true);
+        !limitInput && setMathExpression({ key });
     };
     const handleInputExpression = (latex, mathField) => {
         if (!latex && !deleteFlag.current)
             return false;
         // TODO XSS攻击过滤
+        const matchNumber = latex.replace(/\s/g, '').match(operationNumMatch);
+        const matchString = latex.replace(/\s/g, '').match(operationStrMatch);
+        const limitInputPre = (matchNumber && matchNumber[0].length > 2) || (matchString && matchString[0].length > 4);
+        const limitInputPrev = (matchNumber && matchNumber[0].length > 3) || (matchString && matchString[0].length > 5);
+        if (limitInputPre) {
+            setLimitInput(true);
+            mathField.keystroke('Enter');
+            mathField.blur();
+        }
+        if (limitInputPrev)
+            return false;
         setUserAnswer(latex);
         deleteFlag.current = false;
     };
@@ -46,8 +61,13 @@ const PrimaryKeyBoard = () => {
     }, [dispatch, state.currentDoProblemId, userAnswer]);
     const EditExpression = (e) => {
         e.stopPropagation();
-        setEdit(true);
-        mq.focus();
+        if (!limitInput) {
+            setEdit(true);
+            mq.focus();
+        }
+        else {
+            mq.blur();
+        }
     };
     const cancelEditExpression = () => {
         setMathExpression({ key: '' });
@@ -70,13 +90,17 @@ const PrimaryKeyBoard = () => {
             mq.blur();
             setUserAnswer('');
             cacheCurrentDoIndex.current++;
+            setLimitInput(false);
         });
     };
     const handleKeyBoardDelete = (e) => {
+        mq.moveToRightEnd();
         deleteFlag.current = true;
         e.stopPropagation();
+        setLimitInput(false);
         setEdit(true);
         mq.keystroke('Backspace');
+        mq.moveToRightEnd();
         mq.blur();
     };
     return (react_1.default.createElement("div", { className: `${prefixCls}-keyboard-container`, onClick: cancelEditExpression },

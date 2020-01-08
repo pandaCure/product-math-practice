@@ -5,8 +5,11 @@ import EnhanceMathQuillEdit from 'enhance-mathquill-edit'
 import { MathFieldReturn } from 'mathquillloader'
 import { MathExpressionContext } from '../mathExpressionContext'
 const KEY = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
+const operationStrMatch = /[^\d]+/
+const operationNumMatch = /[\d|\.]+/
 const PrimaryKeyBoard = () => {
   const [edit, setEdit] = useState(true)
+  const [limitInput, setLimitInput] = useState(false)
   const [userAnswer, setUserAnswer] = useState('')
   const [mq, setMq] = useState<MathFieldReturn|null>(null)
   const [mathExpression, setMathExpression] = useState({ key: '' })
@@ -17,7 +20,8 @@ const PrimaryKeyBoard = () => {
   const cacheCurrentDoIndex = useRef<number>(0)
   const handleClickKeyBoard = (e: any, key: any) => {
     e.stopPropagation()
-    setMathExpression({ key })
+    setEdit(true)
+    !limitInput && setMathExpression({ key })
   }
   const handleInputExpression = (
     latex: string,
@@ -25,6 +29,16 @@ const PrimaryKeyBoard = () => {
   ) => {
     if (!latex && !deleteFlag!.current) return false
     // TODO XSS攻击过滤
+    const matchNumber = latex.replace(/\s/g, '').match(operationNumMatch)
+    const matchString = latex.replace(/\s/g, '').match(operationStrMatch)
+    const limitInputPre = (matchNumber && matchNumber[0]!.length > 2) || (matchString && matchString[0]!.length > 4)
+    const limitInputPrev = (matchNumber && matchNumber[0]!.length > 3) || (matchString && matchString[0]!.length > 5)
+    if (limitInputPre) {
+      setLimitInput(true)
+      mathField.keystroke('Enter')
+      mathField.blur()
+    }
+    if (limitInputPrev) return false
     setUserAnswer(latex)
     deleteFlag.current = false
   }
@@ -39,8 +53,12 @@ const PrimaryKeyBoard = () => {
   }, [dispatch, state.currentDoProblemId, userAnswer])
   const EditExpression = (e: any) => {
     e.stopPropagation()
-    setEdit(true)
-    mq!.focus()
+    if (!limitInput) {
+      setEdit(true)
+      mq!.focus()
+    } else {
+      mq!.blur()
+    }
   }
   const cancelEditExpression = () => {
     setMathExpression({ key: '' })
@@ -62,13 +80,17 @@ const PrimaryKeyBoard = () => {
       mq!.blur()
       setUserAnswer('')
       cacheCurrentDoIndex!.current++
+      setLimitInput(false)
     })
   }
   const handleKeyBoardDelete = (e: any) => {
+    mq!.moveToRightEnd()
     deleteFlag.current = true
     e.stopPropagation()
+    setLimitInput(false)
     setEdit(true)
     mq!.keystroke('Backspace')
+    mq!.moveToRightEnd()
     mq!.blur()
   }
   return (

@@ -17,7 +17,11 @@ const defaultProps = {
     JSXAttribute(nodePath: NodePath<t.JSXAttribute>) {
       const attrNode = nodePath.node.value;
       if (t.isStringLiteral(attrNode) && attrNode.value === "mq-editable-field mq-math-mode") {
-        const node = nodePath.getAllNextSiblings()
+        let node = nodePath.getAllNextSiblings()
+        if (!node) {
+          node = nodePath.getAllPrevSiblings()
+          console.log(node)
+        }
         node.forEach(v => v.replaceWith(t.jsxAttribute(t.jsxIdentifier('style'), t.stringLiteral("font-family: 'Keyword' !important; opacity: 1"))))
       }
     }
@@ -73,7 +77,7 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
   return (
     <>
       <span ref={ele} style={{...style, position: "absolute", zIndex: edit ? 1 : -1, opacity: edit ? 1 :  0}}/>
-      <span dangerouslySetInnerHTML={{ __html: katexRenderString }} style={{position: "absolute", zIndex: edit ? -1 : 1, opacity: edit ? 0 :  1}}/>
+      <span dangerouslySetInnerHTML={{ __html: katexRenderString }} style={{position: "absolute", zIndex: edit ? -1 : 1, opacity: edit ? 0 :  1}} tag="show"/>
     </>
   )
 }

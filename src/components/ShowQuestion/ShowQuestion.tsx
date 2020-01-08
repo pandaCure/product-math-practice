@@ -17,7 +17,6 @@ const ShowQuestion = () => {
   return (
     <div className="zzy-show-question">
       <div className="question-block">
-        <div className="question-tag" />
         <ul className="question-view" ref={uiDOM}>
           {mathExpression.map((v, i) => {
             return (
@@ -29,6 +28,7 @@ const ShowQuestion = () => {
                 )}
                 ref={liDOM}
               >
+                <div className="question-tag" style={{display: currentDoProblemId === i ? '' : 'none'}}/>
                 <KatexMathDiv
                   mathExpression={v.expression}
                   answerMathExpression={v.answerMathExpression}

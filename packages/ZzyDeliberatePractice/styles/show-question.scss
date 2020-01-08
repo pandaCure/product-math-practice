@@ -23,15 +23,6 @@
     position: relative;
     display: flex;
     justify-content: center;
-    .#{$base}-question-tag {
-      position: absolute;
-      background-image: url(../asserts/practice-flag.png);
-      @include bgCompose;
-      left: computerQuestionEM(145);
-      top: computerQuestionEM(12);
-      width: computerQuestionEM(36);
-      height: computerQuestionEM(16);
-    }
     .#{$base}-question-view {
       display: flex;
       flex-direction: column;
@@ -48,5 +39,15 @@
   }
   .#{$base}-base-item {
     padding-bottom: computerQuestionEM(33);
+    position: relative;
+    .#{$base}-question-tag {
+      position: absolute;
+      background-image: url(../asserts/practice-flag.png);
+      @include bgCompose;
+      left: computerQuestionEM(-42);
+      top: computerQuestionEM(12);
+      width: computerQuestionEM(36);
+      height: computerQuestionEM(16);
+    }
   }
 }

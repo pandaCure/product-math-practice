@@ -32,15 +32,6 @@ $baseQuestionEM: 28;
     position: relative;
     display: flex;
     justify-content: center;
-    .question-tag {
-      position: absolute;
-      background-image: url(../../asserts/practice-flag.png);
-      @include bgCompose;
-      left: computerQuestionEM(145);
-      top: computerQuestionEM(12);
-      width: computerQuestionEM(36);
-      height: computerQuestionEM(16);
-    }
     .question-view {
       display: flex;
       flex-direction: column;
@@ -57,5 +48,15 @@ $baseQuestionEM: 28;
   }
   .base-item {
     padding-bottom: computerQuestionEM(33);
+    position: relative;
+    .question-tag {
+      position: absolute;
+      background-image: url(../../asserts/practice-flag.png);
+      @include bgCompose;
+      left: computerQuestionEM(-42);
+      top: computerQuestionEM(12);
+      width: computerQuestionEM(36);
+      height: computerQuestionEM(16);
+    }
   }
 }
