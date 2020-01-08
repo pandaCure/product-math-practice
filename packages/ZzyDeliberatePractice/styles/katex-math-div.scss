@@ -6,7 +6,7 @@
   .#{$base}-answer {
     font-family: DIN, "Noto Sans TC", serif;
     font-weight: normal;
-    font-size: 1.21em;
+    font-size: (1.21 / 1.15) * 1em;
     line-height: 1.2;
     text-indent: 0;
     text-rendering: auto;
