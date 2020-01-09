@@ -1,5 +1,5 @@
-import React, { createContext, useReducer } from 'react'
-import { computerMathMap, ComputerMathMapEnum } from '@/hooks/hooks'
+import React, { createContext, useReducer, useContext } from 'react'
+import { computerMathMap, ComputerMathMapEnum, IMathExpressionResult } from '@/hooks/hooks'
 import { applyMiddleware, IAction } from './middleware'
 // TODO code splite
 interface IMathExpression {
@@ -19,7 +19,7 @@ const initMathExpression: (key: string) => IInitState = key => {
       .fill(1)
       .map((v: number, i: number) => {
         return {
-          ...computerMathMap.get(key)(),
+          ...computerMathMap.get(key)!(),
           problemId: i,
           answerMathExpression: ''
         }
@@ -93,10 +93,8 @@ export function createCtx<StateType, ActionType>(
       reducer,
       props.initialPropsState
     )
-    const enhanceDispatch = applyMiddleware<
-      StateType,
-      React.Dispatch<ActionType>
-    >(state, dispatch)
+    // TODO 怎么处理
+    const enhanceDispatch = applyMiddleware(state as unknown as IInitState, dispatch)
     return (
       <ctx.Provider
         value={{ state, dispatch, enhanceDispatch, prefixCls }}
@@ -113,10 +111,17 @@ const [MathExpressionContext, MathExpressionContextProvider] = createCtx(
 const stateMap = new Map<string, IInitState>()
 stateMap.set('subState', subState)
 stateMap.set('addState', addState)
-stateMap.set('addState', addState)
+stateMap.set('mulState', mulState)
 stateMap.set('divState', divState)
 export {
   MathExpressionContext,
   MathExpressionContextProvider,
   stateMap
 }
+// TODO typescript 疑问
+/**
+ * 1 - 类型覆盖程度到多少
+ * 2 - 关于useReducer 增强的 返回值 类型 推断
+ * 3 - 怎么使用自定义types
+ * 4 - 关于react state使用默认值的限制
+ * */

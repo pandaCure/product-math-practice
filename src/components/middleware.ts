@@ -1,5 +1,5 @@
 import {computerMathMap} from '@/hooks/hooks'
-import { IMathExpressionType } from './mathExpressionContext'
+import { IMathExpressionType, IInitState } from './mathExpressionContext'
 // TODO 应该使用 const => babel transform ts have problem
 enum MathRecordKeyEnum {
   itemKey = 'record-user-do-problem'
@@ -25,11 +25,11 @@ export interface IAction {
   currentDoProblemId: number
   type: string
 }
-export const applyMiddleware: <T, V>(
+export const applyMiddleware: <T extends IInitState, V>(
   state: T,
   dispatch: V
-) => (action: IAction) => Promise<undefined> = (state: T, dispatch: V) => (
-  action: any
+) => (action: IAction) => Promise<undefined> = (state, dispatch) => (
+  action
 ) => {
   return new Promise((resolve, reject) => {
     try {
@@ -56,7 +56,7 @@ export const applyMiddleware: <T, V>(
         setCacheLocationProblem(MathRecordKeyEnum.itemKey, cacheData)
       }
       // 获取新题
-      const getNewProblem = computerMathMap.get(state.mathExpressionType)()
+      const getNewProblem = computerMathMap.get(state.mathExpressionType)!()
       const enhanceAction = {
         ...action,
         nextMathExpression: {

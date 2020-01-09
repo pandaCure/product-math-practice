@@ -69,7 +69,6 @@ export const applyMiddleware: <T, V>(
       }
       // TODO 返回值？
       resolve(dispatch(enhanceAction))
-      console.log(state)
     } catch (e) {
       reject(e)
     }

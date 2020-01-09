@@ -4,6 +4,7 @@ import './index.scss'
 import submitButton from '@/asserts/submit-button.png'
 import EnhanceMathQuillEdit from '@/components/EnhanceMathQuill/EnhanceMathQuillEdit'
 import { MathExpressionContext } from '@/components/mathExpressionContext'
+import { MathFieldReturn} from '@/components/EnhanceMathQuill/MathQuillLoader'
 const KEY = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
 const operationStrMatch = /[^\d]+/
 const operationNumMatch = /[\d|\.]+/
@@ -11,11 +12,11 @@ const PrimaryKeyBoard = () => {
   const [edit, setEdit] = useState(true)
   const [limitInput, setLimitInput] = useState(false)
   const [userAnswer, setUserAnswer] = useState('')
-  const [mq, setMq] = useState({})
+  const [mq, setMq] = useState<MathFieldReturn | null>(null)
   const [mathExpression, setMathExpression] = useState({ key: '' })
   const { dispatch, enhanceDispatch, state } = useContext(MathExpressionContext)
-  const deleteFlag = useRef<boolean | null>(false)
-  const cacheCurrentDoIndex = useRef<number | null>(0)
+  const deleteFlag = useRef<boolean>(false)
+  const cacheCurrentDoIndex = useRef<number>(0)
   const handleClickKeyBoard = (e:any, key: any) => {
     e.stopPropagation()
     setEdit(true)
@@ -51,16 +52,16 @@ const PrimaryKeyBoard = () => {
     e.stopPropagation()
     if (!limitInput) {
       setEdit(true)
-      mq.focus()
+      mq!.focus()
     } else {
-      mq.blur()
+      mq!.blur()
     }
   }
   const cancelEditExpression = () => {
     setMathExpression({ key: '' })
     setEdit(false)
   }
-  const getMq = mq => setMq(mq)
+  const getMq = (mq: MathFieldReturn) => setMq(mq)
   const handleSubmitAnswer = (e:any) => {
     e.stopPropagation()
     // TODO 提示必填 否则进入不了下一题
@@ -72,21 +73,22 @@ const PrimaryKeyBoard = () => {
     }).then(data => {
       // 下一步题处理
       setEdit(true)
-      mq.latex('').blur()
+      mq!.latex('')
+      mq!.blur()
       setUserAnswer('')
       cacheCurrentDoIndex!.current++
       setLimitInput(false)
     })
   }
   const handleKeyBoardDelete = (e: any) => {
-    mq.moveToRightEnd()
+    mq!.moveToRightEnd()
     deleteFlag.current = true
     e.stopPropagation()
     setLimitInput(false)
     setEdit(true)
-    mq.keystroke('Backspace')
-    mq.moveToRightEnd()
-    mq.blur()
+    mq!.keystroke('Backspace')
+    mq!.moveToRightEnd()
+    mq!.blur()
   }
   return (
     <div className="zzy-keyboard" onClick={cancelEditExpression}>
