@@ -1,12 +1,17 @@
 import React, { createContext, useReducer, useContext } from 'react'
-import { computerMathMap, ComputerMathMapEnum, IMathExpressionResult } from '@/hooks/hooks'
+import {
+  computerMathMap,
+  ComputerMathMapEnum,
+  IMathExpressionResult
+} from '@/hooks/hooks'
 import { applyMiddleware, IAction } from './middleware'
 // TODO code splite
 interface IMathExpression {
   problemId: number
   answerMathExpression: string
 }
-type IMathExpressionType = IMathExpression & Readonly<IMathExpressionResult>
+export type IMathExpressionType = IMathExpression &
+  Readonly<IMathExpressionResult>
 export interface IAddition<T> {
   mathExpression: T[]
   nextAddProblemId: number
@@ -46,7 +51,18 @@ type Action =
       currentDoProblemId: number
       answerMathExpression: string
     }
-  | { type: 'doNextMathExpression'; nextMathExpression: IMathExpression }
+  | {
+      type: 'doNextMathExpression'
+      nextMathExpression: {
+        problemId: number
+        answerMathExpression: string
+        firstNumber: number
+        secondNumber: number
+        result: number
+        expression: string
+        resultExpression: string
+      }
+    }
 const mathExpressionReducer = (state: AppState, action: Action): AppState => {
   const { mathExpression } = state
   switch (action.type) {
@@ -93,8 +109,11 @@ export function createCtx<StateType, ActionType>(
       reducer,
       props.initialPropsState
     )
-    // TODO 怎么处理
-    const enhanceDispatch = applyMiddleware(state as unknown as IInitState, dispatch)
+    // TODO 怎么处理 typeof
+    const enhanceDispatch = applyMiddleware(
+      (state as unknown) as IInitState,
+      dispatch
+    )
     return (
       <ctx.Provider
         value={{ state, dispatch, enhanceDispatch, prefixCls }}
@@ -113,11 +132,7 @@ stateMap.set('subState', subState)
 stateMap.set('addState', addState)
 stateMap.set('mulState', mulState)
 stateMap.set('divState', divState)
-export {
-  MathExpressionContext,
-  MathExpressionContextProvider,
-  stateMap
-}
+export { MathExpressionContext, MathExpressionContextProvider, stateMap }
 // TODO typescript 疑问
 /**
  * 1 - 类型覆盖程度到多少

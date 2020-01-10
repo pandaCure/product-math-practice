@@ -41,6 +41,7 @@ export const applyMiddleware: <T extends IInitState, V>(
       const mathAnswerExpression = mathExpression.find(
         (v:IMathExpressionType) => v.problemId === currentDoProblemId
       )
+      if (!mathAnswerExpression) throw new Error(`mathAnswerExpression value is undefined`)
       const isCorrect = mathAnswerExpression.resultExpression === userAnswer
       // 存用户题目
       if (getCacheLocationProblem(MathRecordKeyEnum.itemKey)) {

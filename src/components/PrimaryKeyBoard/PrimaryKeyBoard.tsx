@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
-import classnames from 'classnames'
 import './index.scss'
 import submitButton from '@/asserts/submit-button.png'
 import EnhanceMathQuillEdit from '@/components/EnhanceMathQuill/EnhanceMathQuillEdit'
@@ -22,7 +21,7 @@ const PrimaryKeyBoard = () => {
     setEdit(true)
     !limitInput && setMathExpression({ key })
   }
-  const handleInputExpression = (latex, mathField) => {
+  const handleInputExpression = (latex:string, mathField:MathFieldReturn) => {
     // TODO 手动删除处理
     if (!latex && !deleteFlag!.current) return false
     // TODO XSS攻击过滤

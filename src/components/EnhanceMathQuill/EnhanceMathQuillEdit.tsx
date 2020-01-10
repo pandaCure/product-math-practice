@@ -9,8 +9,6 @@ export interface IEnhanceMathQuillEdit {
   handleInputExpression: (mathExpression: string, mathField: MathFieldReturn) => void
   edit: boolean
   getMq: (mathField: MathFieldReturn) => void
-  traverseOpts?: traverseTypes.TraverseOptions
-  style?: React.CSSProperties
 }
 const defaultProps = {
   traverseOpts: {
@@ -30,7 +28,7 @@ const defaultProps = {
     fontFamily: "Keyword"
   }
 }
-type IEnhanceMathQuillEditType = IEnhanceMathQuillEdit & typeof defaultProps
+type IEnhanceMathQuillEditType = IEnhanceMathQuillEdit & Partial<typeof defaultProps>
 const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
   const {
     mathExpression,
@@ -58,7 +56,6 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
   }, [getMq, handleInputExpression])
   useEffect(() => {
     if (cacheMQ!.current) {
-      console.log(`------------------------>`, 'render')
       const mq = cacheMQ.current
       mq.write(mathExpression.key)
       const ast = parse(mq.el().outerHTML, {
@@ -77,7 +74,7 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
   return (
     <>
       <span ref={ele} style={{...style, position: "absolute", zIndex: edit ? 1 : -1, opacity: edit ? 1 :  0}}/>
-      <span dangerouslySetInnerHTML={{ __html: katexRenderString }} style={{position: "absolute", zIndex: edit ? -1 : 1, opacity: edit ? 0 :  1}} tag="show"/>
+      <span dangerouslySetInnerHTML={{ __html: katexRenderString }} style={{position: "absolute", zIndex: edit ? -1 : 1, opacity: edit ? 0 :  1}} />
     </>
   )
 }
