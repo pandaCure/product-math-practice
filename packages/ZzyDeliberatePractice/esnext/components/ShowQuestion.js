@@ -21,8 +21,7 @@ const ShowQuestion = () => {
     const uiDOM = react_1.useRef(null);
     react_1.useEffect(() => {
         if (liDOM.current && uiDOM.current) {
-            const { height } = liDOM.current.getBoundingClientRect();
-            uiDOM.current.style.transform = `translate3d(0, ${height *
+            uiDOM.current.style.transform = `translate3d(0, ${70.685 *
                 -currentDoProblemId}px, 0)`;
         }
     }, [currentDoProblemId]);

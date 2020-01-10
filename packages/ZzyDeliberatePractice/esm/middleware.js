@@ -63,7 +63,6 @@ exports.applyMiddleware = function (state, dispatch) { return function (action) 
             var enhanceAction = __assign(__assign({}, action), { nextMathExpression: __assign(__assign({}, getNewProblem), { problemId: state.nextAddProblemId, answerMathExpression: '' }) });
             // TODO 返回值？
             resolve(dispatch(enhanceAction));
-            console.log(state);
         }
         catch (e) {
             reject(e);

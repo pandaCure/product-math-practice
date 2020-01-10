@@ -53,7 +53,6 @@ exports.applyMiddleware = (state, dispatch) => (action) => {
             };
             // TODO 返回值？
             resolve(dispatch(enhanceAction));
-            console.log(state);
         }
         catch (e) {
             reject(e);

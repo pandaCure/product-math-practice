@@ -21,8 +21,7 @@ var ShowQuestion = function () {
     var uiDOM = react_1.useRef(null);
     react_1.useEffect(function () {
         if (liDOM.current && uiDOM.current) {
-            var height = liDOM.current.getBoundingClientRect().height;
-            uiDOM.current.style.transform = "translate3d(0, " + height *
+            uiDOM.current.style.transform = "translate3d(0, " + 70.685 *
                 -currentDoProblemId + "px, 0)";
         }
     }, [currentDoProblemId]);
