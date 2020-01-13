@@ -42,12 +42,27 @@
     position: relative;
     .#{$base}-question-tag {
       position: absolute;
-      background-image: url(../asserts/practice-flag.png);
-      @include bgCompose;
       left: computerQuestionEM(-42);
       top: computerQuestionEM(12);
       width: computerQuestionEM(36);
       height: computerQuestionEM(16);
+      display: flex;
+      align-items: center;
+      &-animation1 {
+        animation: first-opacity1 1.5s linear infinite;
+        width: 10.41px;
+        height: 15.28px;
+      }
+      &-animation2 {
+        animation: first-opacity2 1.5s linear infinite;
+        width: 10.41px;
+        height: 15.28px;
+      }
+      &-animation3 {
+        animation: first-opacity3 1.5s linear infinite;
+        width: 10.41px;
+        height: 15.28px;
+      }
     }
   }
 }

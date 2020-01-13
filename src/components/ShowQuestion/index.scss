@@ -51,12 +51,54 @@ $baseQuestionEM: 28;
     position: relative;
     .question-tag {
       position: absolute;
-      background-image: url(../../asserts/practice-flag.png);
-      @include bgCompose;
       left: computerQuestionEM(-42);
       top: computerQuestionEM(12);
       width: computerQuestionEM(36);
       height: computerQuestionEM(16);
+      display: flex;
+      align-items: center;
+      &-animation1 {
+        animation: first-opacity1 1.5s linear infinite;
+        width: 10.41px;
+        height: 15.28px;
+      }
+      &-animation2 {
+        animation: first-opacity2 1.5s linear infinite;
+        width: 10.41px;
+        height: 15.28px;
+      }
+      &-animation3 {
+        animation: first-opacity3 1.5s linear infinite;
+        width: 10.41px;
+        height: 15.28px;
+      }
     }
+  }
+}
+@keyframes first-opacity1 {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+@keyframes first-opacity2 {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+@keyframes first-opacity3 {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
   }
 }

@@ -14,6 +14,7 @@ var react_1 = __importStar(require("react"));
 var KatexMathDiv_1 = __importDefault(require("./KatexMathDiv"));
 var mathExpressionContext_1 = require("../mathExpressionContext");
 var classnames_1 = __importDefault(require("classnames"));
+var path_png_1 = __importDefault(require("../asserts/path.png"));
 var ShowQuestion = function () {
     var _a = react_1.useContext(mathExpressionContext_1.MathExpressionContext), state = _a.state, prefixCls = _a.prefixCls;
     var mathExpression = state.mathExpression, currentDoProblemId = state.currentDoProblemId;
@@ -31,7 +32,10 @@ var ShowQuestion = function () {
                 return (react_1.default.createElement("li", { key: i, className: classnames_1.default(currentDoProblemId === i
                         ? prefixCls + "-change-color"
                         : prefixCls + "-base-color", prefixCls + "-base-item"), ref: liDOM },
-                    react_1.default.createElement("div", { className: prefixCls + "-question-tag", style: { display: currentDoProblemId === i ? '' : 'none' } }),
+                    react_1.default.createElement("div", { className: prefixCls + "-question-tag", style: { display: currentDoProblemId === i ? '' : 'none' } },
+                        react_1.default.createElement("img", { src: path_png_1.default, alt: "pathImage", className: prefixCls + "-question-tag-animation1" }),
+                        react_1.default.createElement("img", { src: path_png_1.default, alt: "pathImage", className: prefixCls + "-question-tag-animation2" }),
+                        react_1.default.createElement("img", { src: path_png_1.default, alt: "pathImage", className: prefixCls + "-question-tag-animation3" })),
                     react_1.default.createElement(KatexMathDiv_1.default, { mathExpression: v.expression, answerMathExpression: v.answerMathExpression, changeBorderColor: currentDoProblemId === i })));
             }))),
         react_1.default.createElement("div", { className: prefixCls + "-question-bottom" })));

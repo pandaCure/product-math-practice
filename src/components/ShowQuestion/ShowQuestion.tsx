@@ -3,6 +3,7 @@ import './index.scss'
 import KatexMathDiv from '@/components/KatexMath/KatexMathDiv'
 import { MathExpressionContext } from '@/components/mathExpressionContext'
 import classnames from 'classnames'
+import pathImage from '@/asserts/path.png'
 const ShowQuestion = () => {
   const { state } = useContext(MathExpressionContext)
   const { mathExpression, currentDoProblemId } = state
@@ -28,7 +29,11 @@ const ShowQuestion = () => {
                 )}
                 ref={liDOM}
               >
-                <div className="question-tag" style={{display: currentDoProblemId === i ? '' : 'none'}}/>
+                <div className="question-tag" style={{display: currentDoProblemId === i ? '' : 'none'}}>
+                  <img src={pathImage} alt="pathImage" className="question-tag-animation1" />
+                  <img src={pathImage} alt="pathImage" className="question-tag-animation2" />
+                  <img src={pathImage} alt="pathImage" className="question-tag-animation3"/>
+                </div>
                 <KatexMathDiv
                   mathExpression={v.expression}
                   answerMathExpression={v.answerMathExpression}
