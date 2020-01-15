@@ -17,7 +17,6 @@ const operationNumMatch = /[\d|\.]+/
 const PrimaryKeyBoard = () => {
   const [edit, setEdit] = useState(true)
   const [limitInput, setLimitInput] = useState(false)
-  const [canSubmit, setCanSubmit] = useState(true)
   const [userAnswer, setUserAnswer] = useState('')
   const [mq, setMq] = useState<MathFieldReturn | null>(null)
   const [mathExpression, setMathExpression] = useState({ key: '' })
@@ -31,28 +30,25 @@ const PrimaryKeyBoard = () => {
   }
   const handleInputExpression = (latex: string, mathField: MathFieldReturn) => {
     console.log(latex)
-    setCanSubmit(true)
     // TODO 手动删除处理
     if (!latex && !deleteFlag!.current) return false
     // TODO XSS攻击过滤 不传后端 不要紧
     const matchNumber = latex.replace(/\s/g, '').match(operationNumMatch)
     const matchString = latex.replace(/\s/g, '').match(operationStrMatch)
+    console.log(matchString)
     const limitInputPre =
-      (matchNumber && matchNumber[0]!.length > 2) ||
-      (matchString && matchString[0]!.length > 4)
+      (matchNumber && matchNumber[0]!.length > 2)
     const limitInputPrev =
-      (matchNumber && matchNumber[0]!.length > 3) ||
-      (matchString && matchString[0]!.length > 5)
+      (matchNumber && matchNumber[0]!.length > 3)
     if (limitInputPre) {
       setLimitInput(true)
       mathField.keystroke('Enter')
       mathField.blur()
     }
-    if (limitInputPrev) return false
+    if (matchString || limitInputPrev) return false
     setUserAnswer(latex)
     deleteFlag.current = false
   }
-  const changeSubmitControl = () => setCanSubmit(false)
   useEffect(() => {
     if (cacheCurrentDoIndex!.current === state.currentDoProblemId) {
       dispatch({
@@ -66,7 +62,7 @@ const PrimaryKeyBoard = () => {
     e.stopPropagation()
     if (!limitInput) {
       setEdit(true)
-      mq!.focus()
+      mq!.blur()
     } else {
       mq!.blur()
     }
@@ -104,24 +100,22 @@ const PrimaryKeyBoard = () => {
     mq!.blur()
   }
   useEffect(() => {
-    const referenceArr: string[] = ["div"]
     const handleKeyword = (e: KeyboardEvent) => {
-      console.log(e.keyCode)
+      // 超过三个字符处理
+      if (limitInput) return false
       if (e.keyCode >= 48 && e.keyCode <= 57) {
         e.keyCode >= 48 && setMathExpression({ key: String(e.keyCode - 48) })
       } else if (e.keyCode >= 96 && e.keyCode <= 103) {
         e.keyCode >= 96 && setMathExpression({ key: String(e.keyCode - 96) })
       } else if (e.keyCode === 190) {
         setMathExpression({ key: '.' })
-      } else if (e.keyCode === 13 && canSubmit) {
+      } else if (e.keyCode === 13) {
         mq?.latex() && handleSubmitAnswer()
-      } else {
-        mq?.focus()
       }
     }
     window.addEventListener('keyup', handleKeyword, false)
     return () => window.removeEventListener('keyup', handleKeyword, false)
-  }, [canSubmit, handleSubmitAnswer, mq])
+  }, [handleSubmitAnswer, limitInput, mq])
   return (
     <div className="zzy-keyboard" onClick={cancelEditExpression}>
       <div className="input-block" onClick={EditExpression}>
@@ -130,7 +124,6 @@ const PrimaryKeyBoard = () => {
             <EnhanceMathQuillEdit
               mathExpression={mathExpression}
               handleInputExpression={handleInputExpression}
-              changeSubmitControl={changeSubmitControl}
               edit={edit}
               getMq={getMq}
             />

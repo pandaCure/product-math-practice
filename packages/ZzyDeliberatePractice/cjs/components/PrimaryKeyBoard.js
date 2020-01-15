@@ -63,7 +63,7 @@ var PrimaryKeyBoard = function () {
         e.stopPropagation();
         if (!limitInput) {
             setEdit(true);
-            mq.focus();
+            mq.blur();
         }
         else {
             mq.blur();
@@ -104,6 +104,8 @@ var PrimaryKeyBoard = function () {
     };
     react_1.useEffect(function () {
         var handleKeyword = function (e) {
+            if (limitInput)
+                return false;
             if (e.keyCode >= 48 && e.keyCode <= 57) {
                 e.keyCode >= 48 && setMathExpression({ key: String(e.keyCode - 48) });
             }
