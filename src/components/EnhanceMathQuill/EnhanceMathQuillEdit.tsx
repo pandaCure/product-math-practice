@@ -9,6 +9,7 @@ export interface IEnhanceMathQuillEdit {
   handleInputExpression: (mathExpression: string, mathField: MathFieldReturn) => void
   edit: boolean
   getMq: (mathField: MathFieldReturn) => void
+  changeSubmitControl: () => void
 }
 const defaultProps = {
   traverseOpts: {
@@ -36,7 +37,8 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
     getMq,
     edit,
     traverseOpts,
-    style
+    style,
+    changeSubmitControl
   } = props
   const [katexRenderString, setKatexRenderString] = useState('')
   const ele = useRef<HTMLSpanElement>(null)
@@ -47,13 +49,14 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
         handlers: {
           edit: (mathField: MathFieldReturn) => {
             handleInputExpression(mathField.latex(), mathField)
-          }
+          },
+          enter: (mathField: MathFieldReturn) => changeSubmitControl()
         }
       })
       cacheMQ.current = mq
       getMq(mq)
     }
-  }, [getMq, handleInputExpression])
+  }, [changeSubmitControl, getMq, handleInputExpression])
   useEffect(() => {
     if (cacheMQ!.current) {
       const mq = cacheMQ.current

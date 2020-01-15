@@ -74,8 +74,7 @@ const PrimaryKeyBoard = () => {
         setEdit(false);
     };
     const getMq = (mq) => setMq(mq);
-    const handleSubmitAnswer = (e) => {
-        e.stopPropagation();
+    const handleSubmitAnswer = react_1.useCallback(() => {
         // TODO 提示必填 否则进入不了下一题
         if (!userAnswer)
             return false;
@@ -92,7 +91,7 @@ const PrimaryKeyBoard = () => {
             cacheCurrentDoIndex.current++;
             setLimitInput(false);
         });
-    };
+    }, [enhanceDispatch, mq, state.currentDoProblemId, userAnswer]);
     const handleKeyBoardDelete = (e) => {
         mq.moveToRightEnd();
         deleteFlag.current = true;
@@ -103,6 +102,25 @@ const PrimaryKeyBoard = () => {
         mq.moveToRightEnd();
         mq.blur();
     };
+    react_1.useEffect(() => {
+        const handleKeyword = (e) => {
+            if (e.keyCode >= 48 && e.keyCode <= 57) {
+                e.keyCode >= 48 && setMathExpression({ key: String(e.keyCode - 48) });
+            }
+            else if (e.keyCode >= 96 && e.keyCode <= 103) {
+                e.keyCode >= 96 && setMathExpression({ key: String(e.keyCode - 96) });
+            }
+            else if (e.keyCode === 190) {
+                setMathExpression({ key: '.' });
+            }
+            else if (e.keyCode === 13) {
+                if (mq.latex())
+                    handleSubmitAnswer();
+            }
+        };
+        window.addEventListener('keyup', handleKeyword, false);
+        return () => window.removeEventListener('keyup', handleKeyword, false);
+    }, [handleSubmitAnswer, mq]);
     return (react_1.default.createElement("div", { className: `${prefixCls}-keyboard-container`, onClick: cancelEditExpression },
         react_1.default.createElement("div", { className: `${prefixCls}-input-block`, onClick: EditExpression },
             react_1.default.createElement("div", { className: `${prefixCls}-input-value-block` },

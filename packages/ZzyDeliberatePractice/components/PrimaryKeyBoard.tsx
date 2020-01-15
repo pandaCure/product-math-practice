@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React, { useState, useContext, useEffect, useRef, useCallback } from 'react'
 import classnames from 'classnames'
 import submitButton from '../asserts/submit-button.png'
 import EnhanceMathQuillEdit from 'enhance-mathquill-edit'
@@ -51,7 +51,7 @@ const PrimaryKeyBoard = () => {
       })
     }
   }, [dispatch, state.currentDoProblemId, userAnswer])
-  const EditExpression = (e: any) => {
+  const EditExpression = (e: React.MouseEvent) => {
     e.stopPropagation()
     if (!limitInput) {
       setEdit(true)
@@ -65,8 +65,7 @@ const PrimaryKeyBoard = () => {
     setEdit(false)
   }
   const getMq = (mq: MathFieldReturn) => setMq(mq)
-  const handleSubmitAnswer = (e:any) => {
-    e.stopPropagation()
+  const handleSubmitAnswer = useCallback(() => {
     // TODO 提示必填 否则进入不了下一题
     if (!userAnswer) return false
     enhanceDispatch({
@@ -82,8 +81,8 @@ const PrimaryKeyBoard = () => {
       cacheCurrentDoIndex!.current++
       setLimitInput(false)
     })
-  }
-  const handleKeyBoardDelete = (e: any) => {
+  }, [enhanceDispatch, mq, state.currentDoProblemId, userAnswer])
+  const handleKeyBoardDelete = (e: React.MouseEvent) => {
     mq!.moveToRightEnd()
     deleteFlag.current = true
     e.stopPropagation()
@@ -93,6 +92,21 @@ const PrimaryKeyBoard = () => {
     mq!.moveToRightEnd()
     mq!.blur()
   }
+  useEffect(() => {
+    const handleKeyword = (e: KeyboardEvent) => {
+      if (e.keyCode >= 48 && e.keyCode <= 57) {
+        e.keyCode >= 48 && setMathExpression({ key: String(e.keyCode - 48) })
+      } else if (e.keyCode >= 96 && e.keyCode <= 103) {
+        e.keyCode >= 96 && setMathExpression({ key: String(e.keyCode - 96) })
+      } else if (e.keyCode === 190) {
+        setMathExpression({ key: '.' })
+      } else if (e.keyCode === 13) {
+        if (mq!.latex()) handleSubmitAnswer()
+      }
+    }
+    window.addEventListener('keyup', handleKeyword, false)
+    return () => window.removeEventListener('keyup', handleKeyword, false)
+  }, [handleSubmitAnswer, mq])
   return (
     <div
       className={`${prefixCls}-keyboard-container`}
