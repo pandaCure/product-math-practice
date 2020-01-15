@@ -19,7 +19,10 @@
   ],
   "sideEffects": [
     "styles",
-    "asserts"
+    "asserts",
+    "cjs/asserts",
+    "esm/asserts",
+    "esnext/asserts"
   ],
   "repository": {
     "type": "git",
