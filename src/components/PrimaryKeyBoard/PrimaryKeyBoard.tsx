@@ -22,28 +22,44 @@ const PrimaryKeyBoard = () => {
   const [mathExpression, setMathExpression] = useState({ key: '' })
   const { dispatch, enhanceDispatch, state } = useContext(MathExpressionContext)
   const deleteFlag = useRef<boolean>(false)
+  const inputFlag = useRef<number>(0)
   const cacheCurrentDoIndex = useRef<number>(0)
   const handleClickKeyBoard = (e: any, key: any) => {
     e.stopPropagation()
     setEdit(true)
+    inputFlag.current < 4 && inputFlag.current++
     !limitInput && setMathExpression({ key })
   }
   const handleInputExpression = (latex: string, mathField: MathFieldReturn) => {
-    console.log(latex)
+    console.log(`@@@@@@@@@@@@@@@@@@`, latex)
     // TODO 手动删除处理
     if (!latex && !deleteFlag!.current) return false
     // TODO XSS攻击过滤 不传后端 不要紧
     const matchNumber = latex.replace(/\s/g, '').match(operationNumMatch)
     const matchString = latex.replace(/\s/g, '').match(operationStrMatch)
-    console.log(matchString)
     const limitInputPre = matchNumber && matchNumber[0]!.length > 2
     const limitInputPrev = matchNumber && matchNumber[0]!.length > 3
     if (limitInputPre) {
       setLimitInput(true)
       mathField.keystroke('Enter')
       mathField.blur()
+      if (latex.length > 3 && !matchString) {
+        return mathField!.keystroke('Backspace')
+      }
+    } else {
+      setLimitInput(false)
     }
-    if (matchString || limitInputPrev) return false
+    if (limitInputPrev) return false
+    if (matchString) {
+      return mathField!.keystroke('Backspace')
+    }
+    if (latex.length > 3) {
+      return mathField!.keystroke('Backspace')
+    }
+    console.log(`_________******************`, latex.length)
+    console.log(`_________******************`, inputFlag.current)
+    if (inputFlag.current !== latex.length)
+      return mathField!.keystroke('Backspace')
     setUserAnswer(latex)
     deleteFlag.current = false
   }
@@ -88,6 +104,7 @@ const PrimaryKeyBoard = () => {
     })
   }, [enhanceDispatch, mq, state.currentDoProblemId, userAnswer])
   const handleKeyBoardDelete = (e: React.MouseEvent) => {
+    inputFlag.current > 0 && inputFlag.current--
     mq!.moveToRightEnd()
     deleteFlag.current = true
     e.stopPropagation()
@@ -101,6 +118,7 @@ const PrimaryKeyBoard = () => {
     const handleKeyword = (e: KeyboardEvent) => {
       if (e.keyCode === 8) {
         console.log(`@@@@@@@@@@@@@@@@@@@@@`)
+        inputFlag.current > 0 && inputFlag.current--
         mq!.moveToRightEnd()
         deleteFlag.current = true
         setLimitInput(false)
@@ -113,17 +131,20 @@ const PrimaryKeyBoard = () => {
       console.log(e.keyCode)
       if (limitInput) return false
       if (e.keyCode >= 48 && e.keyCode <= 57) {
+        inputFlag.current < 4 && inputFlag.current++
         e.keyCode >= 48 && setMathExpression({ key: String(e.keyCode - 48) })
       } else if (e.keyCode >= 96 && e.keyCode <= 103) {
+        inputFlag.current < 4 && inputFlag.current++
         e.keyCode >= 96 && setMathExpression({ key: String(e.keyCode - 96) })
       } else if (e.keyCode === 190) {
+        inputFlag.current < 4 && inputFlag.current++
         setMathExpression({ key: '.' })
       } else if (e.keyCode === 13) {
         mq?.latex() && handleSubmitAnswer()
       }
     }
-    window.addEventListener('keyup', handleKeyword, false)
-    return () => window.removeEventListener('keyup', handleKeyword, false)
+    window.addEventListener('keydown', handleKeyword, false)
+    return () => window.removeEventListener('keydown', handleKeyword, false)
   }, [handleSubmitAnswer, limitInput, mq])
   return (
     <div className="zzy-keyboard" onClick={cancelEditExpression}>

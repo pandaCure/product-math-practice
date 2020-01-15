@@ -26,10 +26,12 @@ var PrimaryKeyBoard = function () {
     var _e = react_1.useState({ key: '' }), mathExpression = _e[0], setMathExpression = _e[1];
     var _f = react_1.useContext(mathExpressionContext_1.MathExpressionContext), dispatch = _f.dispatch, enhanceDispatch = _f.enhanceDispatch, state = _f.state, prefixCls = _f.prefixCls;
     var deleteFlag = react_1.useRef(false);
+    var inputFlag = react_1.useRef(0);
     var cacheCurrentDoIndex = react_1.useRef(0);
     var handleClickKeyBoard = function (e, key) {
         e.stopPropagation();
         setEdit(true);
+        inputFlag.current < 4 && inputFlag.current++;
         !limitInput && setMathExpression({ key: key });
     };
     var handleInputExpression = function (latex, mathField) {
@@ -38,17 +40,29 @@ var PrimaryKeyBoard = function () {
         // TODO XSS攻击过滤
         var matchNumber = latex.replace(/\s/g, '').match(operationNumMatch);
         var matchString = latex.replace(/\s/g, '').match(operationStrMatch);
-        var limitInputPre = (matchNumber && matchNumber[0].length > 2) ||
-            (matchString && matchString[0].length > 4);
-        var limitInputPrev = (matchNumber && matchNumber[0].length > 3) ||
-            (matchString && matchString[0].length > 5);
+        var limitInputPre = matchNumber && matchNumber[0].length > 2;
+        var limitInputPrev = matchNumber && matchNumber[0].length > 3;
         if (limitInputPre) {
             setLimitInput(true);
             mathField.keystroke('Enter');
             mathField.blur();
+            if (latex.length > 3 && !matchString) {
+                return mathField.keystroke('Backspace');
+            }
+        }
+        else {
+            setLimitInput(false);
         }
         if (limitInputPrev)
             return false;
+        if (matchString) {
+            return mathField.keystroke('Backspace');
+        }
+        if (latex.length > 3) {
+            return mathField.keystroke('Backspace');
+        }
+        if (inputFlag.current !== latex.length)
+            return mathField.keystroke('Backspace');
         setUserAnswer(latex);
         deleteFlag.current = false;
     };
@@ -95,6 +109,7 @@ var PrimaryKeyBoard = function () {
         });
     }, [enhanceDispatch, mq, state.currentDoProblemId, userAnswer]);
     var handleKeyBoardDelete = function (e) {
+        inputFlag.current > 0 && inputFlag.current--;
         mq.moveToRightEnd();
         deleteFlag.current = true;
         e.stopPropagation();
@@ -107,6 +122,7 @@ var PrimaryKeyBoard = function () {
     react_1.useEffect(function () {
         var handleKeyword = function (e) {
             if (e.keyCode === 8) {
+                inputFlag.current > 0 && inputFlag.current--;
                 mq.moveToRightEnd();
                 deleteFlag.current = true;
                 setLimitInput(false);
@@ -118,12 +134,15 @@ var PrimaryKeyBoard = function () {
             if (limitInput)
                 return false;
             if (e.keyCode >= 48 && e.keyCode <= 57) {
+                inputFlag.current < 4 && inputFlag.current++;
                 e.keyCode >= 48 && setMathExpression({ key: String(e.keyCode - 48) });
             }
             else if (e.keyCode >= 96 && e.keyCode <= 103) {
+                inputFlag.current < 4 && inputFlag.current++;
                 e.keyCode >= 96 && setMathExpression({ key: String(e.keyCode - 96) });
             }
             else if (e.keyCode === 190) {
+                inputFlag.current < 4 && inputFlag.current++;
                 setMathExpression({ key: '.' });
             }
             else if (e.keyCode === 13) {
@@ -131,8 +150,8 @@ var PrimaryKeyBoard = function () {
                     handleSubmitAnswer();
             }
         };
-        window.addEventListener('keyup', handleKeyword, false);
-        return function () { return window.removeEventListener('keyup', handleKeyword, false); };
+        window.addEventListener('keydown', handleKeyword, false);
+        return function () { return window.removeEventListener('keydown', handleKeyword, false); };
     }, [limitInput, handleSubmitAnswer, mq]);
     return (react_1.default.createElement("div", { className: prefixCls + "-keyboard-container", onClick: cancelEditExpression },
         react_1.default.createElement("div", { className: prefixCls + "-input-block", onClick: EditExpression },

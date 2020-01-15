@@ -1,35 +1,55 @@
-import React, { useRef, useEffect, useCallback, useState, StyleHTMLAttributes } from 'react'
+import React, {
+  useRef,
+  useEffect,
+  useCallback,
+  useState,
+  StyleHTMLAttributes
+} from 'react'
 import { MathQuill, MQ, MathFieldReturn } from './MathQuillLoader'
 import { parse, traverse, NodePath } from '@babel/core'
 import generator from '@babel/generator'
 import * as traverseTypes from '@babel/traverse'
 import * as t from '@babel/types'
 export interface IEnhanceMathQuillEdit {
-  mathExpression: {key: string}
-  handleInputExpression: (mathExpression: string, mathField: MathFieldReturn) => void
+  mathExpression: { key: string }
+  handleInputExpression: (
+    mathExpression: string,
+    mathField: MathFieldReturn
+  ) => void
   edit: boolean
   getMq: (mathField: MathFieldReturn) => void
 }
 const defaultProps = {
   traverseOpts: {
     JSXAttribute(nodePath: NodePath<t.JSXAttribute>) {
-      const attrNode = nodePath.node.value;
-      if (t.isStringLiteral(attrNode) && attrNode.value === "mq-editable-field mq-math-mode") {
+      const attrNode = nodePath.node.value
+      if (
+        t.isStringLiteral(attrNode) &&
+        attrNode.value === 'mq-editable-field mq-math-mode'
+      ) {
         let node = nodePath.getAllNextSiblings()
         if (!node) {
           node = nodePath.getAllPrevSiblings()
           console.log(node)
         }
-        node.forEach(v => v.replaceWith(t.jsxAttribute(t.jsxIdentifier('style'), t.stringLiteral("font-family: 'Keyword' !important; opacity: 1"))))
+        node.forEach(v =>
+          v.replaceWith(
+            t.jsxAttribute(
+              t.jsxIdentifier('style'),
+              t.stringLiteral("font-family: 'Keyword' !important; opacity: 1")
+            )
+          )
+        )
       }
     }
   },
   style: {
-    fontFamily: "Keyword"
+    fontFamily: 'Keyword'
   }
 }
-type IEnhanceMathQuillEditType = IEnhanceMathQuillEdit & Partial<typeof defaultProps>
-const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
+type IEnhanceMathQuillEditType = IEnhanceMathQuillEdit &
+  Partial<typeof defaultProps>
+const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = props => {
   const {
     mathExpression,
     handleInputExpression,
@@ -47,6 +67,9 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
         handlers: {
           edit: (mathField: MathFieldReturn) => {
             handleInputExpression(mathField.latex(), mathField)
+          },
+          downOutOf: (mathField: MathFieldReturn) => {
+            console.log(`@@@@@@@@@@@@@@@@@@@@@`)
           }
         }
       })
@@ -58,23 +81,39 @@ const EnhanceMathQuillEdit: React.FC<IEnhanceMathQuillEditType> = (props) => {
     if (cacheMQ!.current) {
       const mq = cacheMQ.current
       mq.write(mathExpression.key)
+
       const ast = parse(mq.el().outerHTML, {
         parserOpts: {
-          sourceType: "module",
-          plugins: ["jsx"]
+          sourceType: 'module',
+          plugins: ['jsx']
         }
-      }) as t.File;
+      }) as t.File
       traverse(ast, {
         ...traverseOpts
-      });
+      })
       // return generator(ast).code.replace(/\;$/, '');
       setKatexRenderString(generator(ast).code.replace(/\;$/, ''))
     }
   }, [mathExpression, traverseOpts])
   return (
     <>
-      <span ref={ele} style={{...style, position: "absolute", zIndex: edit ? 1 : -1, opacity: edit ? 1 :  0}}/>
-      <span dangerouslySetInnerHTML={{ __html: katexRenderString }} style={{position: "absolute", zIndex: edit ? -1 : 1, opacity: edit ? 0 :  1}} />
+      <span
+        ref={ele}
+        style={{
+          ...style,
+          position: 'absolute',
+          zIndex: edit ? 1 : -1,
+          opacity: edit ? 1 : 0
+        }}
+      />
+      <span
+        dangerouslySetInnerHTML={{ __html: katexRenderString }}
+        style={{
+          position: 'absolute',
+          zIndex: edit ? -1 : 1,
+          opacity: edit ? 0 : 1
+        }}
+      />
     </>
   )
 }
