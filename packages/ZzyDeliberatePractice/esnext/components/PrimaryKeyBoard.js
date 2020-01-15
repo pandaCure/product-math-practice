@@ -38,8 +38,10 @@ const PrimaryKeyBoard = () => {
         // TODO XSS攻击过滤
         const matchNumber = latex.replace(/\s/g, '').match(operationNumMatch);
         const matchString = latex.replace(/\s/g, '').match(operationStrMatch);
-        const limitInputPre = (matchNumber && matchNumber[0].length > 2) || (matchString && matchString[0].length > 4);
-        const limitInputPrev = (matchNumber && matchNumber[0].length > 3) || (matchString && matchString[0].length > 5);
+        const limitInputPre = (matchNumber && matchNumber[0].length > 2) ||
+            (matchString && matchString[0].length > 4);
+        const limitInputPrev = (matchNumber && matchNumber[0].length > 3) ||
+            (matchString && matchString[0].length > 5);
         if (limitInputPre) {
             setLimitInput(true);
             mathField.keystroke('Enter');
@@ -104,6 +106,15 @@ const PrimaryKeyBoard = () => {
     };
     react_1.useEffect(() => {
         const handleKeyword = (e) => {
+            if (e.keyCode === 8) {
+                mq.moveToRightEnd();
+                deleteFlag.current = true;
+                setLimitInput(false);
+                setEdit(true);
+                mq.keystroke('Backspace');
+                mq.moveToRightEnd();
+                mq.blur();
+            }
             if (limitInput)
                 return false;
             if (e.keyCode >= 48 && e.keyCode <= 57) {
@@ -122,7 +133,7 @@ const PrimaryKeyBoard = () => {
         };
         window.addEventListener('keyup', handleKeyword, false);
         return () => window.removeEventListener('keyup', handleKeyword, false);
-    }, [handleSubmitAnswer, mq]);
+    }, [limitInput, handleSubmitAnswer, mq]);
     return (react_1.default.createElement("div", { className: `${prefixCls}-keyboard-container`, onClick: cancelEditExpression },
         react_1.default.createElement("div", { className: `${prefixCls}-input-block`, onClick: EditExpression },
             react_1.default.createElement("div", { className: `${prefixCls}-input-value-block` },
@@ -130,7 +141,7 @@ const PrimaryKeyBoard = () => {
                     react_1.default.createElement(enhance_mathquill_edit_1.default, { mathExpression: mathExpression, handleInputExpression: handleInputExpression, edit: edit, getMq: getMq })))),
         react_1.default.createElement("ul", { className: `${prefixCls}-keyboard` },
             KEY.map((v, i) => {
-                return (react_1.default.createElement("li", { className: `${prefixCls}-keyboard-key`, key: i, onClick: (e) => handleClickKeyBoard(e, v) }, v));
+                return (react_1.default.createElement("li", { className: `${prefixCls}-keyboard-key`, key: i, onClick: e => handleClickKeyBoard(e, v) }, v));
             }),
             react_1.default.createElement("li", { className: `${prefixCls}-keyboard-key`, onClick: handleKeyBoardDelete },
                 react_1.default.createElement("div", { className: classnames_1.default(`${prefixCls}-icon`, `${prefixCls}-icon-delete`, `${prefixCls}-key-icon`) }))),

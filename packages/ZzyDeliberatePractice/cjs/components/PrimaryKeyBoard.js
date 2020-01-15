@@ -38,8 +38,10 @@ var PrimaryKeyBoard = function () {
         // TODO XSS攻击过滤
         var matchNumber = latex.replace(/\s/g, '').match(operationNumMatch);
         var matchString = latex.replace(/\s/g, '').match(operationStrMatch);
-        var limitInputPre = (matchNumber && matchNumber[0].length > 2) || (matchString && matchString[0].length > 4);
-        var limitInputPrev = (matchNumber && matchNumber[0].length > 3) || (matchString && matchString[0].length > 5);
+        var limitInputPre = (matchNumber && matchNumber[0].length > 2) ||
+            (matchString && matchString[0].length > 4);
+        var limitInputPrev = (matchNumber && matchNumber[0].length > 3) ||
+            (matchString && matchString[0].length > 5);
         if (limitInputPre) {
             setLimitInput(true);
             mathField.keystroke('Enter');
@@ -104,6 +106,15 @@ var PrimaryKeyBoard = function () {
     };
     react_1.useEffect(function () {
         var handleKeyword = function (e) {
+            if (e.keyCode === 8) {
+                mq.moveToRightEnd();
+                deleteFlag.current = true;
+                setLimitInput(false);
+                setEdit(true);
+                mq.keystroke('Backspace');
+                mq.moveToRightEnd();
+                mq.blur();
+            }
             if (limitInput)
                 return false;
             if (e.keyCode >= 48 && e.keyCode <= 57) {
@@ -122,7 +133,7 @@ var PrimaryKeyBoard = function () {
         };
         window.addEventListener('keyup', handleKeyword, false);
         return function () { return window.removeEventListener('keyup', handleKeyword, false); };
-    }, [handleSubmitAnswer, mq]);
+    }, [limitInput, handleSubmitAnswer, mq]);
     return (react_1.default.createElement("div", { className: prefixCls + "-keyboard-container", onClick: cancelEditExpression },
         react_1.default.createElement("div", { className: prefixCls + "-input-block", onClick: EditExpression },
             react_1.default.createElement("div", { className: prefixCls + "-input-value-block" },

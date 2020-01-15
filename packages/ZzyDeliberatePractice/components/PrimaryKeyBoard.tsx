@@ -1,4 +1,10 @@
-import React, { useState, useContext, useEffect, useRef, useCallback } from 'react'
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useRef,
+  useCallback
+} from 'react'
 import classnames from 'classnames'
 import submitButton from '../asserts/submit-button.png'
 import EnhanceMathQuillEdit from 'enhance-mathquill-edit'
@@ -11,7 +17,7 @@ const PrimaryKeyBoard = () => {
   const [edit, setEdit] = useState(true)
   const [limitInput, setLimitInput] = useState(false)
   const [userAnswer, setUserAnswer] = useState('')
-  const [mq, setMq] = useState<MathFieldReturn|null>(null)
+  const [mq, setMq] = useState<MathFieldReturn | null>(null)
   const [mathExpression, setMathExpression] = useState({ key: '' })
   const { dispatch, enhanceDispatch, state, prefixCls } = useContext(
     MathExpressionContext
@@ -23,16 +29,17 @@ const PrimaryKeyBoard = () => {
     setEdit(true)
     !limitInput && setMathExpression({ key })
   }
-  const handleInputExpression = (
-    latex: string,
-    mathField: MathFieldReturn
-  ) => {
+  const handleInputExpression = (latex: string, mathField: MathFieldReturn) => {
     if (!latex && !deleteFlag!.current) return false
     // TODO XSS攻击过滤
     const matchNumber = latex.replace(/\s/g, '').match(operationNumMatch)
     const matchString = latex.replace(/\s/g, '').match(operationStrMatch)
-    const limitInputPre = (matchNumber && matchNumber[0]!.length > 2) || (matchString && matchString[0]!.length > 4)
-    const limitInputPrev = (matchNumber && matchNumber[0]!.length > 3) || (matchString && matchString[0]!.length > 5)
+    const limitInputPre =
+      (matchNumber && matchNumber[0]!.length > 2) ||
+      (matchString && matchString[0]!.length > 4)
+    const limitInputPrev =
+      (matchNumber && matchNumber[0]!.length > 3) ||
+      (matchString && matchString[0]!.length > 5)
     if (limitInputPre) {
       setLimitInput(true)
       mathField.keystroke('Enter')
@@ -94,6 +101,15 @@ const PrimaryKeyBoard = () => {
   }
   useEffect(() => {
     const handleKeyword = (e: KeyboardEvent) => {
+      if (e.keyCode === 8) {
+        mq!.moveToRightEnd()
+        deleteFlag.current = true
+        setLimitInput(false)
+        setEdit(true)
+        mq!.keystroke('Backspace')
+        mq!.moveToRightEnd()
+        mq!.blur()
+      }
       if (limitInput) return false
       if (e.keyCode >= 48 && e.keyCode <= 57) {
         e.keyCode >= 48 && setMathExpression({ key: String(e.keyCode - 48) })
@@ -107,7 +123,7 @@ const PrimaryKeyBoard = () => {
     }
     window.addEventListener('keyup', handleKeyword, false)
     return () => window.removeEventListener('keyup', handleKeyword, false)
-  }, [handleSubmitAnswer, mq])
+  }, [limitInput, handleSubmitAnswer, mq])
   return (
     <div
       className={`${prefixCls}-keyboard-container`}
@@ -131,7 +147,7 @@ const PrimaryKeyBoard = () => {
             <li
               className={`${prefixCls}-keyboard-key`}
               key={i}
-              onClick={(e) => handleClickKeyBoard(e, v)}
+              onClick={e => handleClickKeyBoard(e, v)}
             >
               {v}
             </li>

@@ -36,10 +36,8 @@ const PrimaryKeyBoard = () => {
     const matchNumber = latex.replace(/\s/g, '').match(operationNumMatch)
     const matchString = latex.replace(/\s/g, '').match(operationStrMatch)
     console.log(matchString)
-    const limitInputPre =
-      (matchNumber && matchNumber[0]!.length > 2)
-    const limitInputPrev =
-      (matchNumber && matchNumber[0]!.length > 3)
+    const limitInputPre = matchNumber && matchNumber[0]!.length > 2
+    const limitInputPrev = matchNumber && matchNumber[0]!.length > 3
     if (limitInputPre) {
       setLimitInput(true)
       mathField.keystroke('Enter')
@@ -101,7 +99,18 @@ const PrimaryKeyBoard = () => {
   }
   useEffect(() => {
     const handleKeyword = (e: KeyboardEvent) => {
+      if (e.keyCode === 8) {
+        console.log(`@@@@@@@@@@@@@@@@@@@@@`)
+        mq!.moveToRightEnd()
+        deleteFlag.current = true
+        setLimitInput(false)
+        setEdit(true)
+        mq!.keystroke('Backspace')
+        mq!.moveToRightEnd()
+        mq!.blur()
+      }
       // 超过三个字符处理
+      console.log(e.keyCode)
       if (limitInput) return false
       if (e.keyCode >= 48 && e.keyCode <= 57) {
         e.keyCode >= 48 && setMathExpression({ key: String(e.keyCode - 48) })
