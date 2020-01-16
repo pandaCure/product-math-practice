@@ -11,7 +11,7 @@ import EnhanceMathQuillEdit from 'enhance-mathquill-edit'
 import { MathFieldReturn } from 'mathquillloader'
 import { MathExpressionContext } from '../mathExpressionContext'
 const KEY = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0]
-const operationStrMatch = /[^\d]+/
+const operationStrMatch = /[^\d\.]+/
 const operationNumMatch = /[\d|\.]+/
 const PrimaryKeyBoard = () => {
   const [edit, setEdit] = useState(true)

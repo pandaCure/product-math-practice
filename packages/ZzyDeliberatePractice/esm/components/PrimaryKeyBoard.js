@@ -16,7 +16,7 @@ var submit_button_png_1 = __importDefault(require("../asserts/submit-button.png"
 var enhance_mathquill_edit_1 = __importDefault(require("enhance-mathquill-edit"));
 var mathExpressionContext_1 = require("../mathExpressionContext");
 var KEY = [1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0];
-var operationStrMatch = /[^\d]+/;
+var operationStrMatch = /[^\d\.]+/;
 var operationNumMatch = /[\d|\.]+/;
 var PrimaryKeyBoard = function () {
     var _a = react_1.useState(true), edit = _a[0], setEdit = _a[1];
