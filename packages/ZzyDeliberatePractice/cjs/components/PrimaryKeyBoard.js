@@ -132,6 +132,9 @@ var PrimaryKeyBoard = function () {
                 mq.moveToRightEnd();
                 mq.blur();
             }
+            if (e.keyCode === 13) {
+                inputFlag.current > 0 && handleSubmitAnswer();
+            }
             if (limitInput)
                 return false;
             if (e.keyCode >= 48 && e.keyCode <= 57) {
@@ -145,10 +148,6 @@ var PrimaryKeyBoard = function () {
             else if (e.keyCode === 190) {
                 inputFlag.current < 3 && inputFlag.current++;
                 setMathExpression({ key: '.' });
-            }
-            else if (e.keyCode === 13) {
-                if (mq.latex())
-                    handleSubmitAnswer();
             }
         };
         window.addEventListener('keydown', handleKeyword, false);
