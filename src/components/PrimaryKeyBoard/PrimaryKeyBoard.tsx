@@ -101,6 +101,7 @@ const PrimaryKeyBoard = () => {
       setUserAnswer('')
       cacheCurrentDoIndex!.current++
       setLimitInput(false)
+      inputFlag.current = 0
     })
   }, [enhanceDispatch, mq, state.currentDoProblemId, userAnswer])
   const handleKeyBoardDelete = (e: React.MouseEvent) => {

@@ -100,6 +100,7 @@ var PrimaryKeyBoard = function () {
             type: 'doNextMathExpression'
         }).then(function (data) {
             // 下一步题处理
+            inputFlag.current = 0;
             setEdit(true);
             mq.latex('');
             mq.blur();

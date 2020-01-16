@@ -100,6 +100,7 @@ const PrimaryKeyBoard = () => {
             type: 'doNextMathExpression'
         }).then(data => {
             // 下一步题处理
+            inputFlag.current = 0;
             setEdit(true);
             mq.latex('');
             mq.blur();
