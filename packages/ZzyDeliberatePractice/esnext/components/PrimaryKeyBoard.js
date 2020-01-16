@@ -31,7 +31,7 @@ const PrimaryKeyBoard = () => {
     const handleClickKeyBoard = (e, key) => {
         e.stopPropagation();
         setEdit(true);
-        inputFlag.current < 4 && inputFlag.current++;
+        inputFlag.current < 3 && inputFlag.current++;
         !limitInput && setMathExpression({ key });
     };
     const handleInputExpression = (latex, mathField) => {
@@ -134,15 +134,15 @@ const PrimaryKeyBoard = () => {
             if (limitInput)
                 return false;
             if (e.keyCode >= 48 && e.keyCode <= 57) {
-                inputFlag.current < 4 && inputFlag.current++;
+                inputFlag.current < 3 && inputFlag.current++;
                 e.keyCode >= 48 && setMathExpression({ key: String(e.keyCode - 48) });
             }
             else if (e.keyCode >= 96 && e.keyCode <= 103) {
-                inputFlag.current < 4 && inputFlag.current++;
+                inputFlag.current < 3 && inputFlag.current++;
                 e.keyCode >= 96 && setMathExpression({ key: String(e.keyCode - 96) });
             }
             else if (e.keyCode === 190) {
-                inputFlag.current < 4 && inputFlag.current++;
+                inputFlag.current < 3 && inputFlag.current++;
                 setMathExpression({ key: '.' });
             }
             else if (e.keyCode === 13) {
