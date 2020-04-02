@@ -1,6 +1,6 @@
 {
   "name": "enhance-mathquill-no-edit",
-  "version": "1.0.2-alpha.0",
+  "version": "1.0.2",
   "author": "pandaCure <zzyamor@163.com>",
   "homepage": "https://github.com/pandaCure/product-math-practice#readme",
   "license": "ISC",
@@ -30,7 +30,7 @@
     "compile:esnext": "tsc -t esnext --outDir esnext -p ./tsconfig.json"
   },
   "dependencies": {
-    "mathquillloader": "^1.0.5-alpha.0"
+    "mathquillloader": "^1.0.5"
   },
   "devDependencies": {
     "rimraf": "^3.0.0"
