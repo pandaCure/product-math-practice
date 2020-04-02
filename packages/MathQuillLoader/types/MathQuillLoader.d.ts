@@ -1,4 +1,4 @@
-import '../style/mathquill.scss';
+import './style/mathquill.scss';
 declare type Direction = 0 | 1;
 export interface MathFieldReturn {
     revert(): void;

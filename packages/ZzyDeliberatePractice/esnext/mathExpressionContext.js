@@ -34,10 +34,14 @@ const initMathExpression = key => {
         mathExpressionType: key
     };
 };
-const addState = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpression);
-const subState = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpression);
-const mulState = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpression);
-const divState = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpression);
+const addStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel1);
+const subStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel1);
+const mulStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel1);
+const divStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel1);
+const addStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel2);
+const subStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel2);
+const mulStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel2);
+const divStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel2);
 const mathExpressionReducer = (state, action) => {
     const { mathExpression } = state;
     switch (action.type) {
@@ -83,12 +87,16 @@ function createCtx(reducer, initialState) {
     return [ctx, Provider];
 }
 exports.createCtx = createCtx;
-const [MathExpressionContext, MathExpressionContextProvider] = createCtx(mathExpressionReducer, subState);
+const [MathExpressionContext, MathExpressionContextProvider] = createCtx(mathExpressionReducer, subStateLevel1);
 exports.MathExpressionContext = MathExpressionContext;
 exports.MathExpressionContextProvider = MathExpressionContextProvider;
 const stateMap = new Map();
 exports.stateMap = stateMap;
-stateMap.set('subState', subState);
-stateMap.set('addState', addState);
-stateMap.set('mulState', mulState);
-stateMap.set('divState', divState);
+stateMap.set('subStateLevel1', subStateLevel1);
+stateMap.set('addStateLevel1', addStateLevel1);
+stateMap.set('mulStateLevel1', mulStateLevel1);
+stateMap.set('divStateLevel1', divStateLevel1);
+stateMap.set('subStateLevel2', subStateLevel2);
+stateMap.set('addStateLevel2', addStateLevel2);
+stateMap.set('mulStateLevel2', mulStateLevel2);
+stateMap.set('divStateLevel2', divStateLevel2);

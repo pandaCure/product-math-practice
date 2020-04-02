@@ -66,7 +66,7 @@ export const applyMiddleware: <T extends IInitState, V>(
           answerMathExpression: ''
         }
       }
-      // TODO 返回值？
+      // TODO 返回值？设计有问题 resolve应该出现在enhanceAction里面
       resolve(dispatch(enhanceAction))
       console.log(state)
     } catch (e) {

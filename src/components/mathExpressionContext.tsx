@@ -3,7 +3,7 @@ import {
   computerMathMap,
   ComputerMathMapEnum,
   IMathExpressionResult
-} from '@/hooks/hooks'
+} from '@/hooks'
 import { applyMiddleware, IAction } from './middleware'
 // TODO code splite
 interface IMathExpression {
@@ -34,15 +34,25 @@ const initMathExpression: (key: string) => IInitState = key => {
     mathExpressionType: key
   }
 }
-const addState = initMathExpression(ComputerMathMapEnum.getAddendMathExpression)
-const subState = initMathExpression(
-  ComputerMathMapEnum.getSubtractionMathExpression
+const addStateLevel1 = initMathExpression(ComputerMathMapEnum.getAddendMathExpressionLevel1)
+const subStateLevel1 = initMathExpression(
+  ComputerMathMapEnum.getSubtractionMathExpressionLevel1
 )
-const mulState = initMathExpression(
-  ComputerMathMapEnum.getMultiplicationMathExpression
+const mulStateLevel1 = initMathExpression(
+  ComputerMathMapEnum.getMultiplicationMathExpressionLevel1
 )
-const divState = initMathExpression(
-  ComputerMathMapEnum.getDivisionMathExpression
+const divStateLevel1 = initMathExpression(
+  ComputerMathMapEnum.getDivisionMathExpressionLevel1
+)
+const addStateLevel2 = initMathExpression(ComputerMathMapEnum.getAddendMathExpressionLevel2)
+const subStateLevel2 = initMathExpression(
+  ComputerMathMapEnum.getSubtractionMathExpressionLevel2
+)
+const mulStateLevel2 = initMathExpression(
+  ComputerMathMapEnum.getMultiplicationMathExpressionLevel2
+)
+const divStateLevel2 = initMathExpression(
+  ComputerMathMapEnum.getDivisionMathExpressionLevel2
 )
 type AppState = IInitState
 type Action =
@@ -125,13 +135,17 @@ export function createCtx<StateType, ActionType>(
 }
 const [MathExpressionContext, MathExpressionContextProvider] = createCtx(
   mathExpressionReducer,
-  subState
+  subStateLevel1
 )
 const stateMap = new Map<string, IInitState>()
-stateMap.set('subState', subState)
-stateMap.set('addState', addState)
-stateMap.set('mulState', mulState)
-stateMap.set('divState', divState)
+stateMap.set('subStateLevel1', subStateLevel1)
+stateMap.set('addStateLevel1', addStateLevel1)
+stateMap.set('mulStateLevel1', mulStateLevel1)
+stateMap.set('divStateLevel1', divStateLevel1)
+stateMap.set('subStateLevel2', subStateLevel2)
+stateMap.set('addStateLevel2', addStateLevel2)
+stateMap.set('mulStateLevel2', mulStateLevel2)
+stateMap.set('divStateLevel2', divStateLevel2)
 export { MathExpressionContext, MathExpressionContextProvider, stateMap }
 // TODO typescript 疑问
 /**

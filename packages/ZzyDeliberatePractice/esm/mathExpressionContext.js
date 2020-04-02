@@ -48,10 +48,14 @@ var initMathExpression = function (key) {
         mathExpressionType: key
     };
 };
-var addState = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpression);
-var subState = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpression);
-var mulState = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpression);
-var divState = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpression);
+var addStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel1);
+var subStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel1);
+var mulStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel1);
+var divStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel1);
+var addStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel2);
+var subStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel2);
+var mulStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel2);
+var divStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel2);
 var mathExpressionReducer = function (state, action) {
     var mathExpression = state.mathExpression;
     switch (action.type) {
@@ -86,12 +90,16 @@ function createCtx(reducer, initialState) {
     return [ctx, Provider];
 }
 exports.createCtx = createCtx;
-var _a = createCtx(mathExpressionReducer, subState), MathExpressionContext = _a[0], MathExpressionContextProvider = _a[1];
+var _a = createCtx(mathExpressionReducer, subStateLevel1), MathExpressionContext = _a[0], MathExpressionContextProvider = _a[1];
 exports.MathExpressionContext = MathExpressionContext;
 exports.MathExpressionContextProvider = MathExpressionContextProvider;
 var stateMap = new Map();
 exports.stateMap = stateMap;
-stateMap.set('subState', subState);
-stateMap.set('addState', addState);
-stateMap.set('mulState', mulState);
-stateMap.set('divState', divState);
+stateMap.set('subStateLevel1', subStateLevel1);
+stateMap.set('addStateLevel1', addStateLevel1);
+stateMap.set('mulStateLevel1', mulStateLevel1);
+stateMap.set('divStateLevel1', divStateLevel1);
+stateMap.set('subStateLevel2', subStateLevel2);
+stateMap.set('addStateLevel2', addStateLevel2);
+stateMap.set('mulStateLevel2', mulStateLevel2);
+stateMap.set('divStateLevel2', divStateLevel2);

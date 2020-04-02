@@ -7,9 +7,13 @@ export interface IMathExpressionResult {
 }
 declare const computerMathMap: Map<string, () => IMathExpressionResult>;
 declare enum ComputerMathMapEnum {
-    getAddendMathExpression = "getAddendMathExpression",
-    getSubtractionMathExpression = "getSubtractionMathExpression",
-    getMultiplicationMathExpression = "getMultiplicationMathExpression",
-    getDivisionMathExpression = "getDivisionMathExpression"
+    getAddendMathExpressionLevel1 = "getAddendMathExpressionLevel1",
+    getSubtractionMathExpressionLevel1 = "getSubtractionMathExpressionLevel1",
+    getMultiplicationMathExpressionLevel1 = "getMultiplicationMathExpressionLevel1",
+    getDivisionMathExpressionLevel1 = "getDivisionMathExpressionLevel1",
+    getAddendMathExpressionLevel2 = "getAddendMathExpressionLevel2",
+    getSubtractionMathExpressionLevel2 = "getSubtractionMathExpressionLevel2",
+    getMultiplicationMathExpressionLevel2 = "getMultiplicationMathExpressionLevel2",
+    getDivisionMathExpressionLevel2 = "getDivisionMathExpressionLevel2"
 }
 export { computerMathMap, ComputerMathMapEnum };

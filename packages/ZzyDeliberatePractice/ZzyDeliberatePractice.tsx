@@ -6,7 +6,15 @@ import {
   stateMap
 } from './mathExpressionContext'
 import ShowQuestion from './components/ShowQuestion'
-type propsType = 'subState' | 'addState' | 'mulState' | 'divState'
+type propsType =
+  | 'subStateLevel1'
+  | 'addStateLevel1'
+  | 'mulStateLevel1'
+  | 'divStateLevel1'
+  | 'subStateLevel2'
+  | 'addStateLevel2'
+  | 'mulStateLevel2'
+  | 'divStateLevel2'
 interface IZP {
   types: propsType
 }

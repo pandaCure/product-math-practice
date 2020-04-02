@@ -30,12 +30,12 @@ export declare function createCtx<StateType, ActionType>(reducer: React.Reducer<
     [props: string]: any;
 }>) => JSX.Element];
 declare const MathExpressionContext: React.Context<{
-    state: IAddition<IMathExpressionType>;
+    state: IInitState;
     dispatch: React.Dispatch<Action>;
     enhanceDispatch: (action: IAction) => Promise<undefined>;
     prefixCls: string;
 }>, MathExpressionContextProvider: (props: React.PropsWithChildren<{
     [props: string]: any;
 }>) => JSX.Element;
-declare const stateMap: Map<string, IAddition<IMathExpressionType>>;
+declare const stateMap: Map<string, IInitState>;
 export { MathExpressionContext, MathExpressionContextProvider, stateMap };
