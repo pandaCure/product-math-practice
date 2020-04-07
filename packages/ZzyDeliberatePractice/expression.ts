@@ -38,7 +38,7 @@ const getSubtractionMathExpressionLevel1: () => IMathExpressionResult = () => {
     secondNumber: sub2,
     result,
     resultExpression: `${result}`,
-    expression: `${sub1}-${sub2}`
+    expression: `${sub1}-${sub2}=`
   }
 }
 const getMultiplicationMathExpressionLevel1: () => IMathExpressionResult = () => {
@@ -50,7 +50,7 @@ const getMultiplicationMathExpressionLevel1: () => IMathExpressionResult = () =>
     secondNumber: num2Ones,
     result,
     resultExpression: `${result}`,
-    expression: `${num1Ones}\\times${num2Ones}`
+    expression: `${num1Ones}\\times${num2Ones}=`
   }
 }
 const getDivisionMathExpressionLevel1: () => IMathExpressionResult = () => {
@@ -62,7 +62,7 @@ const getDivisionMathExpressionLevel1: () => IMathExpressionResult = () => {
     secondNumber: num2Ones,
     result,
     resultExpression: `${result}`,
-    expression: `${num1Ones}\\div${num2Ones}`
+    expression: `${num1Ones}\\div${num2Ones}=`
   }
 }
 const getAddendMathExpressionLevel2: () => IMathExpressionResult = () => {
@@ -94,7 +94,7 @@ const getSubtractionMathExpressionLevel2: () => IMathExpressionResult = () => {
     secondNumber: sub2,
     result,
     resultExpression: `${result}`,
-    expression: `${sub1}-${sub2}`
+    expression: `${sub1}-${sub2}=`
   }
 }
 const getMultiplicationMathExpressionLevel2: () => IMathExpressionResult = () => {
@@ -108,7 +108,7 @@ const getMultiplicationMathExpressionLevel2: () => IMathExpressionResult = () =>
     secondNumber: num2Ones,
     result,
     resultExpression: `${result}`,
-    expression: `${value}\\times${num2Ones}`
+    expression: `${value}\\times${num2Ones}=`
   }
 }
 const getDivisionMathExpressionLevel2: () => IMathExpressionResult = () => {
@@ -122,7 +122,7 @@ const getDivisionMathExpressionLevel2: () => IMathExpressionResult = () => {
     secondNumber: num2Ones,
     result,
     resultExpression: `${result}`,
-    expression: `${num1Ones}\\div${num2Ones}`
+    expression: `${num1Ones}\\div${num2Ones}=`
   }
 }
 const computerMathMap = new Map<string, () => IMathExpressionResult>()
