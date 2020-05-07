@@ -138,7 +138,7 @@ const PrimaryKeyBoard = () => {
       if (e.keyCode >= 48 && e.keyCode <= 57) {
         inputFlag.current < 3 && inputFlag.current++
         e.keyCode >= 48 && setMathExpression({ key: String(e.keyCode - 48) })
-      } else if (e.keyCode >= 96 && e.keyCode <= 103) {
+      } else if (e.keyCode >= 96 && e.keyCode <= 105) {
         inputFlag.current < 3 && inputFlag.current++
         e.keyCode >= 96 && setMathExpression({ key: String(e.keyCode - 96) })
       } else if (e.keyCode === 190) {
