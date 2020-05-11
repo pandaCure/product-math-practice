@@ -34,14 +34,14 @@ const initMathExpression = key => {
         mathExpressionType: key
     };
 };
-const addStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel1);
-const subStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel1);
-const mulStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel1);
-const divStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel1);
-const addStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel2);
-const subStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel2);
-const mulStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel2);
-const divStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel2);
+const addStateLevel1 = () => initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel1);
+const subStateLevel1 = () => initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel1);
+const mulStateLevel1 = () => initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel1);
+const divStateLevel1 = () => initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel1);
+const addStateLevel2 = () => initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel2);
+const subStateLevel2 = () => initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel2);
+const mulStateLevel2 = () => initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel2);
+const divStateLevel2 = () => initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel2);
 const mathExpressionReducer = (state, action) => {
     const { mathExpression } = state;
     switch (action.type) {
@@ -87,7 +87,7 @@ function createCtx(reducer, initialState) {
     return [ctx, Provider];
 }
 exports.createCtx = createCtx;
-const [MathExpressionContext, MathExpressionContextProvider] = createCtx(mathExpressionReducer, subStateLevel1);
+const [MathExpressionContext, MathExpressionContextProvider] = createCtx(mathExpressionReducer, subStateLevel1());
 exports.MathExpressionContext = MathExpressionContext;
 exports.MathExpressionContextProvider = MathExpressionContextProvider;
 const stateMap = new Map();

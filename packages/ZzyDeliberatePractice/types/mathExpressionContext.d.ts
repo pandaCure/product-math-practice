@@ -37,5 +37,5 @@ declare const MathExpressionContext: React.Context<{
 }>, MathExpressionContextProvider: (props: React.PropsWithChildren<{
     [props: string]: any;
 }>) => JSX.Element;
-declare const stateMap: Map<string, IInitState>;
+declare const stateMap: Map<string, () => IInitState>;
 export { MathExpressionContext, MathExpressionContextProvider, stateMap };

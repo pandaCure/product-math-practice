@@ -18,7 +18,7 @@ var ZzyDeliberatePractice = function (_a) {
     var types = _a.types;
     // TODO 进场图片加载动画需要吗
     var prefixCls = react_1.useContext(mathExpressionContext_1.MathExpressionContext).prefixCls;
-    return (react_1.default.createElement(mathExpressionContext_1.MathExpressionContextProvider, { initialPropsState: mathExpressionContext_1.stateMap.get(types) },
+    return (react_1.default.createElement(mathExpressionContext_1.MathExpressionContextProvider, { initialPropsState: mathExpressionContext_1.stateMap.get(types)() },
         react_1.default.createElement("div", { className: prefixCls + "-container" },
             react_1.default.createElement(ShowQuestion_1.default, null),
             react_1.default.createElement(PrimaryKeyBoard_1.default, null))));

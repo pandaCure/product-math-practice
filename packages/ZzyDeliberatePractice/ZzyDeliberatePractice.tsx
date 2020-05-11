@@ -22,7 +22,7 @@ const ZzyDeliberatePractice: React.FC<IZP> = ({ types }) => {
   // TODO 进场图片加载动画需要吗
   const { prefixCls } = useContext(MathExpressionContext)
   return (
-    <MathExpressionContextProvider initialPropsState={stateMap.get(types)}>
+    <MathExpressionContextProvider initialPropsState={stateMap.get(types)!()}>
       <div className={`${prefixCls}-container`}>
         <ShowQuestion />
         <PrimaryKeyBoard />

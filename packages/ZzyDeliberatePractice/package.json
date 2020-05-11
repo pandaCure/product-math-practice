@@ -29,7 +29,7 @@
     "url": "git+https://github.com/pandaCure/product-math-practice.git"
   },
   "scripts": {
-    "compile:all": "npm run clean && npm run compile:esm && npm run compile:cjs && npm run compile:esnext && npm run copy",
+    "compile::all": "npm run clean && npm run compile:esm && npm run compile:cjs && npm run compile:esnext && npm run copy",
     "clean": "rimraf cjs && rimraf esm && rimraf esnext && rimraf types",
     "compile:esm": "tsc -p ./tsconfig.json --outDir esm",
     "compile:cjs": "tsc -m commonjs --outDir cjs -p ./tsconfig.json",

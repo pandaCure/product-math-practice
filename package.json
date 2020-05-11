@@ -4,7 +4,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/app.js",
-    "build": "lerna run compile:all --parallel",
+    "build": "lerna run compile::all --parallel",
     "check-types": "tsc"
   },
   "repository": {

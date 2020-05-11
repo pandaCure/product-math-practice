@@ -48,14 +48,30 @@ var initMathExpression = function (key) {
         mathExpressionType: key
     };
 };
-var addStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel1);
-var subStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel1);
-var mulStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel1);
-var divStateLevel1 = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel1);
-var addStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel2);
-var subStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel2);
-var mulStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel2);
-var divStateLevel2 = initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel2);
+var addStateLevel1 = function () {
+    return initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel1);
+};
+var subStateLevel1 = function () {
+    return initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel1);
+};
+var mulStateLevel1 = function () {
+    return initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel1);
+};
+var divStateLevel1 = function () {
+    return initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel1);
+};
+var addStateLevel2 = function () {
+    return initMathExpression(expression_1.ComputerMathMapEnum.getAddendMathExpressionLevel2);
+};
+var subStateLevel2 = function () {
+    return initMathExpression(expression_1.ComputerMathMapEnum.getSubtractionMathExpressionLevel2);
+};
+var mulStateLevel2 = function () {
+    return initMathExpression(expression_1.ComputerMathMapEnum.getMultiplicationMathExpressionLevel2);
+};
+var divStateLevel2 = function () {
+    return initMathExpression(expression_1.ComputerMathMapEnum.getDivisionMathExpressionLevel2);
+};
 var mathExpressionReducer = function (state, action) {
     var mathExpression = state.mathExpression;
     switch (action.type) {
@@ -90,7 +106,7 @@ function createCtx(reducer, initialState) {
     return [ctx, Provider];
 }
 exports.createCtx = createCtx;
-var _a = createCtx(mathExpressionReducer, subStateLevel1), MathExpressionContext = _a[0], MathExpressionContextProvider = _a[1];
+var _a = createCtx(mathExpressionReducer, subStateLevel1()), MathExpressionContext = _a[0], MathExpressionContextProvider = _a[1];
 exports.MathExpressionContext = MathExpressionContext;
 exports.MathExpressionContextProvider = MathExpressionContextProvider;
 var stateMap = new Map();

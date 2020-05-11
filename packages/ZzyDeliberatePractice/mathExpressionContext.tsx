@@ -43,26 +43,22 @@ const initMathExpression: (key: string) => IInitState = key => {
     mathExpressionType: key
   }
 }
-const addStateLevel1 = initMathExpression(ComputerMathMapEnum.getAddendMathExpressionLevel1)
-const subStateLevel1 = initMathExpression(
-  ComputerMathMapEnum.getSubtractionMathExpressionLevel1
-)
-const mulStateLevel1 = initMathExpression(
-  ComputerMathMapEnum.getMultiplicationMathExpressionLevel1
-)
-const divStateLevel1 = initMathExpression(
-  ComputerMathMapEnum.getDivisionMathExpressionLevel1
-)
-const addStateLevel2 = initMathExpression(ComputerMathMapEnum.getAddendMathExpressionLevel2)
-const subStateLevel2 = initMathExpression(
-  ComputerMathMapEnum.getSubtractionMathExpressionLevel2
-)
-const mulStateLevel2 = initMathExpression(
-  ComputerMathMapEnum.getMultiplicationMathExpressionLevel2
-)
-const divStateLevel2 = initMathExpression(
-  ComputerMathMapEnum.getDivisionMathExpressionLevel2
-)
+const addStateLevel1 = () =>
+  initMathExpression(ComputerMathMapEnum.getAddendMathExpressionLevel1)
+const subStateLevel1 = () =>
+  initMathExpression(ComputerMathMapEnum.getSubtractionMathExpressionLevel1)
+const mulStateLevel1 = () =>
+  initMathExpression(ComputerMathMapEnum.getMultiplicationMathExpressionLevel1)
+const divStateLevel1 = () =>
+  initMathExpression(ComputerMathMapEnum.getDivisionMathExpressionLevel1)
+const addStateLevel2 = () =>
+  initMathExpression(ComputerMathMapEnum.getAddendMathExpressionLevel2)
+const subStateLevel2 = () =>
+  initMathExpression(ComputerMathMapEnum.getSubtractionMathExpressionLevel2)
+const mulStateLevel2 = () =>
+  initMathExpression(ComputerMathMapEnum.getMultiplicationMathExpressionLevel2)
+const divStateLevel2 = () =>
+  initMathExpression(ComputerMathMapEnum.getDivisionMathExpressionLevel2)
 type AppState = IInitState
 type Action =
   | {
@@ -110,7 +106,9 @@ export function createCtx<StateType, ActionType>(
     enhanceDispatch,
     prefixCls
   })
-  const Provider = (props: React.PropsWithChildren<{[props: string]: any}>) => {
+  const Provider = (
+    props: React.PropsWithChildren<{ [props: string]: any }>
+  ) => {
     const [state, dispatch] = useReducer<React.Reducer<StateType, ActionType>>(
       reducer,
       props.initialPropsState
@@ -130,9 +128,9 @@ export function createCtx<StateType, ActionType>(
 }
 const [MathExpressionContext, MathExpressionContextProvider] = createCtx(
   mathExpressionReducer,
-  subStateLevel1
+  subStateLevel1()
 )
-const stateMap = new Map<string, IInitState>()
+const stateMap = new Map<string, () => IInitState>()
 stateMap.set('subStateLevel1', subStateLevel1)
 stateMap.set('addStateLevel1', addStateLevel1)
 stateMap.set('mulStateLevel1', mulStateLevel1)
